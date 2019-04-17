@@ -72,9 +72,9 @@
 				{
 					"type": "object",
 					"properties": {
-						"items": {
+						"employees": {
 							"type": "array",
-							"items": {
+							"employees": {
 								"$ref": "#/definitions/EmployeeDataContentItem"
 							}
 						}
