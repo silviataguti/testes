@@ -43,7 +43,6 @@
 	},    
     
     "definitions": {
-	
         "PagedEmployeeDataContent": {
 			"type": "object",
 			"allOf": [
@@ -71,12 +70,15 @@
                     }
                 },
 				{
-					"employees": {
+					"type": "object",
+					"properties": {
+						"items": {
 							"type": "array",
-							"employees": {
+							"items": {
 								"$ref": "#/definitions/EmployeeDataContentItem"
 							}
 						}
+					}
 				}
 			]
 		},
