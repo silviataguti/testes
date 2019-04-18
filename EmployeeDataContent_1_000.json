@@ -1,6 +1,6 @@
 
 {
-    "$schema": "https://raw.githubusercontent.com/totvs/ttalk-standard-message/master/jsonschema/schemas/events/EmployeeDataContent_1_000.json#",
+    "$schema": "https://raw.githubusercontent.com/edvf82/testes/master/EmployeeDataContent_1_000.json#",
     "info": {
 		"description": "Schema para entidade de funcionarios para a linha de produtos Totvs - Mensagem global utilizando o conceito REST/JSON",
 		"version": "1.000",
@@ -73,9 +73,9 @@
 				{
 					"type": "object",
 					"properties": {
-						"employees": {
+						"items": {
 							"type": "array",
-							"employees": {
+							"items": {
 								"$ref": "#/definitions/EmployeeDataContentItem"
 							}
 						}
