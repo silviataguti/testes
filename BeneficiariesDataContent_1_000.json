@@ -28,7 +28,8 @@
           "contact": "wellington.vieira@totvs.com.br",
           "description": "Consulta de beneficiários, funcionários e seus dependentes que possuem benefícios a eles vinculados e lançados",
           "adapter": "FopBeneficiariosData",
-          "helpUrl": "link aqui"
+          "helpUrl": "link aqui",
+          "note": "No RM o beneficiário não é uma tabela fixa no banco de dados e sim a junção das tabelas: VBENEFTPOFORN, VBENEFFORNECEDORES, VBENEFCONTRATOS, VBENEFCONTRATOS, VBENEFICIOS, VBENEFVINCDEPEND, VBENEFVINCFUNC, PFUNC, VBENEFCARTAO e PFDEPEND por isso os seus fields não terão a informação de uma tabela"
         },
         {
           "product": "DATASUL",
@@ -40,9 +41,8 @@
       ]
     }
   },
-
   "definitions": {
-    "PagedEmployeeDataContent": {
+    "PagedBeneficiariesDataContent": {
       "type": "object",
       "allOf": [
         {
@@ -83,7 +83,7 @@
     },
     "BeneficiariesDataContentItem": {
       "type": "object",
-      "description": "Descreve os dados Beneficiários",
+      "description": "Descreve os dados do Beneficiário",
       "properties": {
         "companyKey": {
           "description": "Agrupamento de Empresa, Unidade de negócio e Filial",
@@ -101,9 +101,9 @@
             },
             {
               "product": "RM",
-              "field": "PFUNC.CODCOLIGADA",
+              "field": "VBENEFICIARIOTMP.CODCOLIGADA",
               "required": true,
-              "type": "string",
+              "type": "integer",
               "available": true,
               "canUpdate": false
             },
@@ -119,13 +119,13 @@
           ]
         },
         "branch": {
-          "description": "Filial do Funcionario",
+          "description": "Filial do Beneficiário",
           "type": "string",
           "exemple": "",
           "x-totvs": [
             {
               "product": "PROTHEUS",
-              "field": "SRAXX0.RA_FILIAL",
+              "field": "",
               "required": true,
               "type": "string",
               "available": true,
@@ -135,10 +135,11 @@
             {
               "product": "RM",
               "field": "",
-              "required": true,
-              "type": "string",
+              "required": false,
+              "type": "integer",
               "available": true,
-              "canUpdate": false
+              "canUpdate": false,
+              "note": "O RM não tratará o conceito de filial na integração com beneficiários"
             },
             {
               "product": "DATASUL",
@@ -152,13 +153,13 @@
           ]
         },
         "code": {
-          "description": "Matricula do Funcionario",
+          "description": "Código do Beneficiário",
           "type": "string",
-          "exemple": "000001",
+          "exemple": "",
           "x-totvs": [
             {
               "product": "PROTHEUS",
-              "field": "SRAXX0.RA_MAT",
+              "field": "",
               "required": true,
               "type": "string",
               "available": true,
@@ -168,10 +169,11 @@
             {
               "product": "RM",
               "field": "",
-              "required": true,
+              "required": false,
               "type": "string",
-              "available": true,
-              "canUpdate": false
+              "available": false,
+              "canUpdate": false,
+              "note": "No RM não há um código que defina um beneficiário pois este conceito é a junção de outros cadastros"
             },
             {
               "product": "DATASUL",
@@ -185,18 +187,471 @@
           ]
         },
         "internalIdCode": {
-          "description": "Chave única do funcionário",
+          "description": "Chave única do Beneficiário",
           "type": "string",
-          "exemple": "",
+          "exemple": "1|1|1|1|001001|0|2018-07-03T00:00:00",
           "x-totvs": [
             {
               "product": "PROTHEUS",
-              "field": "SM0.M0_EMP + SRAXX0.RA_FILIAL + SRAXX0.RA_MAT",
+              "field": "",
               "required": true,
               "type": "string",
               "available": true,
               "canUpdate": false,
               "note": ""
+            },
+            {
+              "product": "RM",
+              "field": "VBENEFICIARIOTMP.CODCOLIGADA | VBENEFICIARIOTMP.CODBENEFICIO | VBENEFICIARIOTMP.CHAPA | VBENEFICIARIOTMP.NRODEPEND | VBENEFICIARIOTMP.DTINICIO",
+              "required": true,
+              "type": "string",
+              "available": true,
+              "canUpdate": false,
+              "note": "No RM foi criado o alias 'VBENEFICIARIOTMP' que é a junção das tabelas VBENEFVINCFUNC e VBENEFVINCDEPEND. No titular o campo NRODEPEND será o valor 00"
+            },
+            {
+              "product": "DATASUL",
+              "field": "",
+              "required": true,
+              "type": "string",
+              "available": true,
+              "canUpdate": false
+            }
+
+          ]
+        },
+        "BenefitsVendorCode": {
+          "description": "Identificador do Fornecedor de Benefícios",
+          "type": "string",
+          "exemple": "001",
+          "x-totvs": [
+            {
+              "product": "PROTHEUS",
+              "field": "",
+              "required": true,
+              "type": "string",
+              "available": true,
+              "canUpdate": false,
+              "note": ""
+            },
+            {
+              "product": "RM",
+              "field": "VBENEFFORNECEDORES.CODFORNECEDORBENEFICIO",
+              "required": true,
+              "type": "string",
+              "available": true,
+              "canUpdate": false
+            },
+            {
+              "product": "DATASUL",
+              "field": "",
+              "required": true,
+              "type": "string",
+              "available": true,
+              "canUpdate": false
+            }
+          ]
+        },
+        "BenefitVendorInternalId": {
+          "description": "Identificador Interno do Fornecedor de Benefícios",
+          "type": "string",
+          "exemple": "1|001",
+          "x-totvs": [
+            {
+              "product": "PROTHEUS",
+              "field": "",
+              "required": true,
+              "type": "string",
+              "available": true,
+              "canUpdate": false,
+              "note": ""
+            },
+            {
+              "product": "RM",
+              "field": "VBENEFICIARIOTMP.CODCOLIGADA + VBENEFICIARIOTMP.CODFORNECEDORBENEFICIO",
+              "required": true,
+              "type": "string",
+              "available": true,
+              "canUpdate": false
+            },
+            {
+              "product": "DATASUL",
+              "field": "",
+              "required": true,
+              "type": "string",
+              "available": true,
+              "canUpdate": false
+            }
+          ]
+        },
+        "BenefitVendorSegmentCode": {
+          "description": "Código do tipo de segmento do fornecedor do Benefício",
+          "type": "string",
+          "exemple": "1",
+          "x-totvs": [
+            {
+              "product": "PROTHEUS",
+              "field": "",
+              "required": true,
+              "type": "string",
+              "available": true,
+              "canUpdate": false,
+              "note": ""
+            },
+            {
+              "product": "RM",
+              "field": "VBENEFICIARIOTMP.CODTIPOFORNECEDORBENEFICIO",
+              "required": true,
+              "type": "smallint",
+              "available": true,
+              "canUpdate": false,
+              "note": "1 - Ass. Médica, 2 - Ass. Odontolófica ..."
+            },
+            {
+              "product": "DATASUL",
+              "field": "",
+              "required": true,
+              "type": "string",
+              "available": true,
+              "canUpdate": false
+            }
+          ]
+        },
+        "BenefitCode": {
+          "description": "Código do Benefício",
+          "type": "string",
+          "exemple": "001",
+          "x-totvs": [
+            {
+              "product": "PROTHEUS",
+              "field": "",
+              "required": true,
+              "type": "string",
+              "available": true,
+              "canUpdate": false,
+              "note": ""
+            },
+            {
+              "product": "RM",
+              "field": "VBENEFICIARIOTMP.CODBENEFICIO",
+              "required": true,
+              "type": "string",
+              "available": true,
+              "canUpdate": false
+            },
+            {
+              "product": "DATASUL",
+              "field": "",
+              "required": true,
+              "type": "string",
+              "available": true,
+              "canUpdate": false
+            }
+          ]
+        },
+        "BenefitInternalId": {
+          "description": "Código do Benefício",
+          "type": "string",
+          "exemple": "001",
+          "x-totvs": [
+            {
+              "product": "PROTHEUS",
+              "field": "",
+              "required": true,
+              "type": "string",
+              "available": true,
+              "canUpdate": false,
+              "note": ""
+            },
+            {
+              "product": "RM",
+              "field": "VBENEFICIARIOTMP.CODCOLIGADA + VBENEFICIARIOTMP.CODBENEFICIO",
+              "required": true,
+              "type": "string",
+              "available": true,
+              "canUpdate": false
+            },
+            {
+              "product": "DATASUL",
+              "field": "",
+              "required": true,
+              "type": "string",
+              "available": true,
+              "canUpdate": false
+            }
+          ]
+        },
+        "beginDate": {
+          "description": "Início da vigência do Benefício ao beneficiário",
+          "type": "string",
+          "exemple": "001",
+          "x-totvs": [
+            {
+              "product": "PROTHEUS",
+              "field": "",
+              "required": true,
+              "type": "string",
+              "available": true,
+              "canUpdate": false,
+              "note": ""
+            },
+            {
+              "product": "RM",
+              "field": "VBENEFICIARIOTMP.DTINICIO",
+              "required": true,
+              "type": "datetime",
+              "available": true,
+              "canUpdate": false
+            },
+            {
+              "product": "DATASUL",
+              "field": "",
+              "required": true,
+              "type": "string",
+              "available": true,
+              "canUpdate": false
+            }
+          ]
+        },
+        "FinalDate": {
+          "description": "Fim da vigência do Benefício ao beneficiário",
+          "type": "string",
+          "exemple": "001",
+          "x-totvs": [
+            {
+              "product": "PROTHEUS",
+              "field": "",
+              "required": true,
+              "type": "string",
+              "available": true,
+              "canUpdate": false,
+              "note": ""
+            },
+            {
+              "product": "RM",
+              "field": "VBENEFICIARIOTMP.DTTERMINO",
+              "required": true,
+              "type": "datetime",
+              "available": true,
+              "canUpdate": false
+            },
+            {
+              "product": "DATASUL",
+              "field": "",
+              "required": true,
+              "type": "string",
+              "available": true,
+              "canUpdate": false
+            }
+          ]
+        },
+        "ContractNumberCode": {
+          "description": "Identificador do Contrato",
+          "type": "string",
+          "exemple": "00001",
+          "x-totvs": [
+            {
+              "product": "PROTHEUS",
+              "field": "",
+              "required": true,
+              "type": "string",
+              "available": true,
+              "canUpdate": false,
+              "note": ""
+            },
+            {
+              "product": "RM",
+              "field": "VBENEFICIARIOTMP.CODCONTRATO",
+              "required": true,
+              "type": "string",
+              "available": true,
+              "canUpdate": false
+            },
+            {
+              "product": "DATASUL",
+              "field": "",
+              "required": true,
+              "type": "string",
+              "available": true,
+              "canUpdate": false
+            }
+          ]
+        },
+        "ContractNumberInternalId": {
+          "description": "Identificador interno do Contrato",
+          "type": "string",
+          "exemple": "00001",
+          "x-totvs": [
+            {
+              "product": "PROTHEUS",
+              "field": "",
+              "required": true,
+              "type": "string",
+              "available": true,
+              "canUpdate": false,
+              "note": ""
+            },
+            {
+              "product": "RM",
+              "field": "VBENEFICIARIOTMP.CODCOLIGADA + VBENEFICIARIOTMP.CODCONTRATO",
+              "required": true,
+              "type": "string",
+              "available": true,
+              "canUpdate": false
+            },
+            {
+              "product": "DATASUL",
+              "field": "",
+              "required": true,
+              "type": "string",
+              "available": true,
+              "canUpdate": false
+            }
+          ]
+        },
+        "EmployeeCode": {
+          "description": "Identificado do Funcionário",
+          "type": "string",
+          "exemple": "00001",
+          "x-totvs": [
+            {
+              "product": "PROTHEUS",
+              "field": "",
+              "required": true,
+              "type": "string",
+              "available": true,
+              "canUpdate": false,
+              "note": ""
+            },
+            {
+              "product": "RM",
+              "field": "VBENEFICIARIOTMP.CHAPA",
+              "required": true,
+              "type": "string",
+              "available": true,
+              "canUpdate": false
+            },
+            {
+              "product": "DATASUL",
+              "field": "",
+              "required": true,
+              "type": "string",
+              "available": true,
+              "canUpdate": false
+            }
+          ]
+        },
+        "EmployeeInternalId": {
+          "description": "Identificado interno do Funcionário",
+          "type": "string",
+          "exemple": "1|00001",
+          "x-totvs": [
+            {
+              "product": "PROTHEUS",
+              "field": "",
+              "required": true,
+              "type": "string",
+              "available": true,
+              "canUpdate": false,
+              "note": ""
+            },
+            {
+              "product": "RM",
+              "field": "VBENEFICIARIOTMP.CODCOLIGADA + PFUNC.VBENEFICIARIOTMP",
+              "required": true,
+              "type": "string",
+              "available": true,
+              "canUpdate": false
+            },
+            {
+              "product": "DATASUL",
+              "field": "",
+              "required": true,
+              "type": "string",
+              "available": true,
+              "canUpdate": false
+            }
+          ]
+        },
+        "RegistryType": {
+          "description": "Tipo do Registro do Beneficiário",
+          "type": "string",
+          "exemple": "00",
+          "x-totvs": [
+            {
+              "product": "PROTHEUS",
+              "field": "",
+              "required": true,
+              "type": "string",
+              "available": true,
+              "canUpdate": false,
+              "note": ""
+            },
+            {
+              "product": "RM",
+              "field": "VBENEFICIARIOTMP.NRODEPEND",
+              "required": true,
+              "type": "smallint",
+              "available": true,
+              "canUpdate": false,
+              "note": "Quando for 00 representa o Titular e diferente de 00 será o identificador do Dependente"
+            },
+            {
+              "product": "DATASUL",
+              "field": "",
+              "required": true,
+              "type": "string",
+              "available": true,
+              "canUpdate": false
+            }
+          ]
+        },
+        "DegreeOfRelatedness": {
+          "description": "Grau de parentesco do dependente com o Titular",
+          "type": "string",
+          "exemple": "T",
+          "x-totvs": [
+            {
+              "product": "PROTHEUS",
+              "field": "",
+              "required": true,
+              "type": "string",
+              "available": true,
+              "canUpdate": false,
+              "note": ""
+            },
+            {
+              "product": "RM",
+              "field": "VBENEFICIARIOTMP.CODGRAUPARENTESCO",
+              "required": true,
+              "type": "string",
+              "available": true,
+              "canUpdate": false,
+              "note": "Será 'T' quando o for o titular e seguirá a codificação da tabela PCODPARENT"
+            },
+            {
+              "product": "DATASUL",
+              "field": "",
+              "required": true,
+              "type": "string",
+              "available": true,
+              "canUpdate": false
+            }
+          ]
+        },
+        "Name": {
+          "description": "Nome do beneficiário",
+          "type": "string",
+          "exemple": "",
+          "x-totvs": [
+            {
+              "product": "PROTHEUS",
+              "field": "VBENEFICIARIOTMP.NOME",
+              "required": true,
+              "type": "string",
+              "available": true,
+              "canUpdate": false,
+              "note": "Pode ser o nome do funcionário PFUNC.NOME como o nome do dependente PFDEPEND.NOME"
             },
             {
               "product": "RM",
@@ -214,10 +669,146 @@
               "available": true,
               "canUpdate": false
             }
-
           ]
         },
-        "name": {
+
+        "BenefitCPF": {
+          "description": "CPF do Beneficiário",
+          "type": "string",
+          "exemple": "90730221008",
+          "x-totvs": [
+            {
+              "product": "PROTHEUS",
+              "field": "",
+              "required": true,
+              "type": "string",
+              "available": true,
+              "canUpdate": false,
+              "note": ""
+            },
+            {
+              "product": "RM",
+              "field": "VBENEFICIARIOTMP.CPF",
+              "required": true,
+              "type": "string",
+              "available": true,
+              "canUpdate": false,
+              "note": "O CPF deverá ser informado somente com numeros sem os caracteres de formatação"
+            },
+            {
+              "product": "DATASUL",
+              "field": "",
+              "required": true,
+              "type": "string",
+              "available": true,
+              "canUpdate": false
+            }
+          ]
+        },
+
+        "MotherName": {
+          "description": "Nome da Mãe do beneficiário titular",
+          "type": "string",
+          "exemple": "",
+          "x-totvs": [
+            {
+              "product": "PROTHEUS",
+              "field": "",
+              "required": true,
+              "type": "string",
+              "available": true,
+              "canUpdate": false,
+              "note": ""
+            },
+            {
+              "product": "RM",
+              "field": "VBENEFICIARIOTMP.NOMEMAE",
+              "required": true,
+              "type": "string",
+              "available": true,
+              "canUpdate": false,
+              "note": "O nome da mãe só será informado no beneficiário titular"
+            },
+            {
+              "product": "DATASUL",
+              "field": "",
+              "required": true,
+              "type": "string",
+              "available": true,
+              "canUpdate": false
+            }
+          ]
+        },
+
+        "Gender": {
+          "description": "Sexo do beneficiário",
+          "type": "string",
+          "exemple": "M",
+          "x-totvs": [
+            {
+              "product": "PROTHEUS",
+              "field": "",
+              "required": true,
+              "type": "string",
+              "available": true,
+              "canUpdate": false,
+              "note": ""
+            },
+            {
+              "product": "RM",
+              "field": "VBENEFICIARIOTMP.SEXO",
+              "required": true,
+              "type": "string",
+              "available": true,
+              "canUpdate": false,
+              "nome": "M - Masculino; F - Feminino"
+            },
+            {
+              "product": "DATASUL",
+              "field": "",
+              "required": true,
+              "type": "string",
+              "available": true,
+              "canUpdate": false
+            }
+          ]
+        },
+
+        "MaritalState": {
+          "description": "Estado Civil C - Casado | D - Desquitado | E - União Estável | I - Divorciado | O - Outros | P - Separado | S - Solteiro | V - Viúvo",
+          "type": "string",
+          "enum": [ "C", "D", "E", "I", "O", "P", "S", "V" ],
+          "exemple": "",
+          "x-totvs": [
+            {
+              "product": "PROTHEUS",
+              "field": "",
+              "required": true,
+              "type": "string",
+              "available": true,
+              "canUpdate": false,
+              "note": ""
+            },
+            {
+              "product": "RM",
+              "field": "VBENEFICIARIOTMP.ESTADOCIVIL",
+              "required": true,
+              "type": "string",
+              "available": true,
+              "canUpdate": false
+            },
+            {
+              "product": "DATASUL",
+              "field": "",
+              "required": true,
+              "type": "string",
+              "available": true,
+              "canUpdate": false
+            }
+          ]
+        },
+
+        "Data Nasc.  ": {
           "description": "Nome do Funcionario",
           "type": "string",
           "exemple": "",
@@ -247,17 +838,17 @@
               "available": true,
               "canUpdate": false
             }
-
           ]
         },
-        "fullName": {
-          "description": "Nome Completo do Funcionário",
+
+        "R.G.        ": {
+          "description": "Nome do Funcionario",
           "type": "string",
           "exemple": "",
           "x-totvs": [
             {
               "product": "PROTHEUS",
-              "field": "SRAXX0.RA_NOMECMP",
+              "field": "SRAXX0.RA_NOME",
               "required": true,
               "type": "string",
               "available": true,
@@ -280,17 +871,17 @@
               "available": true,
               "canUpdate": false
             }
-
           ]
         },
-        "badgeNumber": {
-          "description": "Número do Crachá",
+
+        "Orgão emissor": {
+          "description": "Nome do Funcionario",
           "type": "string",
           "exemple": "",
           "x-totvs": [
             {
               "product": "PROTHEUS",
-              "field": "SRAXX0.RA_CHAPA",
+              "field": "SRAXX0.RA_NOME",
               "required": true,
               "type": "string",
               "available": true,
@@ -313,17 +904,17 @@
               "available": true,
               "canUpdate": false
             }
-
           ]
         },
-        "departmentCode": {
-          "description": "Codigo do departamento",
+
+        "Matric/Cartei Provedor Saude": {
+          "description": "Nome do Funcionario",
           "type": "string",
           "exemple": "",
           "x-totvs": [
             {
               "product": "PROTHEUS",
-              "field": "",
+              "field": "SRAXX0.RA_NOME",
               "required": true,
               "type": "string",
               "available": true,
@@ -346,17 +937,17 @@
               "available": true,
               "canUpdate": false
             }
-
           ]
         },
-        "departmentInternalId": {
-          "description": "InternalId do Departamento",
+
+        "Matric/Cartei Provedor Odonto": {
+          "description": "Nome do Funcionario",
           "type": "string",
           "exemple": "",
           "x-totvs": [
             {
               "product": "PROTHEUS",
-              "field": " ",
+              "field": "SRAXX0.RA_NOME",
               "required": true,
               "type": "string",
               "available": true,
@@ -379,17 +970,17 @@
               "available": true,
               "canUpdate": false
             }
-
           ]
         },
-        "departmentDescription": {
-          "description": "Descrição do Departamento",
+
+        "Matric/Cartei Provedor Alimentação": {
+          "description": "Nome do Funcionario",
           "type": "string",
           "exemple": "",
           "x-totvs": [
             {
               "product": "PROTHEUS",
-              "field": " ",
+              "field": "SRAXX0.RA_NOME",
               "required": true,
               "type": "string",
               "available": true,
@@ -412,119 +1003,17 @@
               "available": true,
               "canUpdate": false
             }
-
           ]
         },
-        "hiringDate": {
-          "description": "Data de Admissão",
-          "type": "string",
-          "format": "date-time",
-          "exemple": "yyyy-mm-ddThh:mm:ss+|-hh:mm",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": " ",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
 
-          ]
-        },
-        "demissionDate": {
-          "description": "Data de Demissão",
-          "type": "string",
-          "format": "date-time",
-          "exemple": "yyyy-mm-ddThh:mm:ss+|-hh:mm",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": " ",
-              "required": false,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": false,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": false,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "birthDate": {
-          "description": "Data de aniversário",
-          "type": "string",
-          "format": "date-time",
-          "exemple": "yyyy-mm-ddThh:mm:ss+|-hh:mm",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": " ",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "gender": {
-          "description": "Sexo",
+        "Matric/Cartei Provedor Refeição": {
+          "description": "Nome do Funcionario",
           "type": "string",
           "exemple": "",
           "x-totvs": [
             {
               "product": "PROTHEUS",
-              "field": " ",
+              "field": "SRAXX0.RA_NOME",
               "required": true,
               "type": "string",
               "available": true,
@@ -547,17 +1036,17 @@
               "available": true,
               "canUpdate": false
             }
-
           ]
         },
-        "street": {
-          "description": "Rua do funcionário",
+
+        "Nr Cartão Nacional de Saúde ": {
+          "description": "Nome do Funcionario",
           "type": "string",
           "exemple": "",
           "x-totvs": [
             {
               "product": "PROTHEUS",
-              "field": " ",
+              "field": "SRAXX0.RA_NOME",
               "required": true,
               "type": "string",
               "available": true,
@@ -580,17 +1069,17 @@
               "available": true,
               "canUpdate": false
             }
-
           ]
         },
-        "streetNumber": {
-          "description": "Número do endereço",
+
+        "De.Nasc.Vivo": {
+          "description": "Nome do Funcionario",
           "type": "string",
           "exemple": "",
           "x-totvs": [
             {
               "product": "PROTHEUS",
-              "field": " ",
+              "field": "SRAXX0.RA_NOME",
               "required": true,
               "type": "string",
               "available": true,
@@ -613,17 +1102,17 @@
               "available": true,
               "canUpdate": false
             }
-
           ]
         },
-        "complement": {
-          "description": "Complemento do endereço",
+
+        "Peso(gr.) ": {
+          "description": "Nome do Funcionario",
           "type": "string",
           "exemple": "",
           "x-totvs": [
             {
               "product": "PROTHEUS",
-              "field": " ",
+              "field": "SRAXX0.RA_NOME",
               "required": true,
               "type": "string",
               "available": true,
@@ -646,1844 +1135,17 @@
               "available": true,
               "canUpdate": false
             }
-
           ]
         },
-        "neighborhood": {
-          "description": "Bairro do Funcionário",
+
+        "Altura(cm.)  ": {
+          "description": "Nome do Funcionario",
           "type": "string",
           "exemple": "",
           "x-totvs": [
             {
               "product": "PROTHEUS",
-              "field": " ",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "homeState": {
-          "description": "Estado do Funcinário",
-          "type": "string",
-          "exemple": "",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": " ",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "naturalCity": {
-          "description": "Naturalidade",
-          "type": "string",
-          "exemple": "",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": " ",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "employeeSituation": {
-          "description": "Situação do Funcionário na Folha",
-          "type": "string",
-          "exemple": "",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": " ",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "workCenterCode": {
-          "description": "Centro de Trabalho",
-          "type": "string",
-          "exemple": "",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": " ",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "city": {
-          "description": "Cidade do Funcionário",
-          "type": "string",
-          "exemple": "",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": " ",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "zipCode": {
-          "description": "Número do Cep",
-          "type": "string",
-          "exemple": "",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": " ",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "areaCode": {
-          "description": "Código de Ýrea(DDD)",
-          "type": "string",
-          "exemple": "",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": " ",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "telephone": {
-          "description": "Telefone",
-          "type": "string",
-          "exemple": "",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": " ",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "areaCodeMobile": {
-          "description": "Código de Ýrea(DDD)",
-          "type": "string",
-          "exemple": "",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": " ",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "mobileNumber": {
-          "description": "Número do Telefone Celular",
-          "type": "string",
-          "exemple": "",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": " ",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "socialIntegProgCode": {
-          "description": "Numero do PIS do Funcionário",
-          "type": "string",
-          "exemple": "",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": " ",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "workCardNumber": {
-          "description": "Carteira de Trabalho do Funcionário",
-          "type": "string",
-          "exemple": "",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": " ",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "workCardSerie": {
-          "description": "Serie da Carteira de Trabalho Profissional",
-          "type": "string",
-          "exemple": "",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": " ",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "workCardStateIssuing": {
-          "description": "Unidade da federação emitente da carteira de trabalho",
-          "type": "string",
-          "exemple": "",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": " ",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "costCenterCode": {
-          "description": "Código do Centro de Custo",
-          "type": "string",
-          "exemple": "",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": " ",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "costCenterInternalId": {
-          "description": "InternalId do Centro de Custo",
-          "type": "string",
-          "exemple": "",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": " ",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "costCenterDescription": {
-          "description": "Descrição do Centro de Custo",
-          "type": "string",
-          "exemple": "",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": " ",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "employeePositionCode": {
-          "description": "Código do Cargo do Funcionário",
-          "type": "string",
-          "exemple": "",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": " ",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "employeePositionCodeInternalId": {
-          "description": "InternalId do Cargo do Funcionário",
-          "type": "string",
-          "exemple": "",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": " ",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "employeePositionLevel": {
-          "description": "Código Nivel Cargo",
-          "type": "string",
-          "exemple": "",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": " ",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "employeePositionDescription": {
-          "description": "Descrição do Cargo do Funcionário",
-          "type": "string",
-          "exemple": "",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": " ",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "salaryCategory": {
-          "description": "Categoria Salarial. Rever estas categorias quando  for utilizar com o RM. Produto Datasul também possui outras categorias (Semana, Quinzenal e Diarista)",
-          "type": "string",
-          "exemple": "",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": " ",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "salary": {
-          "description": "Salário do funcionário",
-          "type": "integer",
-          "format": "int64",
-          "exemple": "",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": " ",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "workShiftCode": {
-          "description": "Turno de Trabalho",
-          "type": "string",
-          "exemple": "",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": " ",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "workShiftInternalId": {
-          "description": "O InternalID do Turno de Trabalho",
-          "type": "string",
-          "exemple": "",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": " ",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "workshiftDescription": {
-          "description": "Descrição do Turno de Trabalho",
-          "type": "string",
-          "exemple": "",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": " ",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "workShiftSequence": {
-          "description": "Sequência de Turno do funcionário",
-          "type": "string",
-          "exemple": "",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": " ",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "initialShiftSequenceDate": {
-          "description": "Data Inicial da Sequencia do Turno",
-          "type": "string",
-          "format": "date-time",
-          "exemple": "yyyy-mm-ddThh:mm:ss+|-hh:mm",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": " ",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "roleCode": {
-          "description": "Código da Função do Funcionário",
-          "type": "string",
-          "exemple": "",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": " ",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "roleInternalId": {
-          "description": "InternalID do Código da Função do Funcionário",
-          "type": "string",
-          "exemple": "",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": " ",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "roleDescription": {
-          "description": "Descrição da Função do Funcionário",
-          "type": "string",
-          "exemple": "",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": " ",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "roleLevel": {
-          "description": "Código Nivel Função",
-          "type": "integer",
-          "format": "int64",
-          "exemple": "",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": " ",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "businessUnit": {
-          "description": "Unidade de Negócio",
-          "type": "string",
-          "exemple": "",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": " ",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "clockInCard": {
-          "description": "Número do cartão ponto do funcionário",
-          "type": "string",
-          "exemple": "",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": " ",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "laborType": {
-          "description": "Tipo de Mão de obra",
-          "type": "string",
-          "exemple": "",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": " ",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "unionCode": {
-          "description": "Código do Sindicato",
-          "type": "string",
-          "exemple": "",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": " ",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "workGroupCode": {
-          "description": "Turma  de Trabalho",
-          "type": "string",
-          "exemple": "",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": " ",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "employeeClassCode": {
-          "description": "Código da classe de funcionários para ponto eletrônico",
-          "type": "integer",
-          "format": "int64",
-          "exemple": "",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": " ",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "locality": {
-          "description": "Localidade",
-          "type": "string",
-          "exemple": "",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": " ",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "allocationPlanCode": {
-          "description": "Código do Plano Lotacional",
-          "type": "string",
-          "exemple": "",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": " ",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "countryLocalityCode": {
-          "description": "Pais Localidade",
-          "type": "string",
-          "exemple": "",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": " ",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "workShiftChangeDate": {
-          "description": "Deverá ser enviado qdo ocorrer alteraçao de lotaçao de turno",
-          "type": "string",
-          "format": "date-time",
-          "exemple": "yyyy-mm-ddThh:mm:ss+|-hh:mm",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": " ",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "timeTableCode": {
-          "description": "Código da jornada",
-          "type": "integer",
-          "format": "int64",
-          "exemple": "",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": " ",
-              "required": true,
-              "type": "integer",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "carrierCode": {
-          "description": "Codigo do Transportador Rural",
-          "type": "integer",
-          "format": "int64",
-          "exemple": "",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": " ",
-              "required": true,
-              "type": "integer",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-
-        "ruralGroupCode": {
-          "description": "Codigo Turma Rural",
-          "type": "string",
-          "exemple": "",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": "SRAXX0.RA_FILIAL",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "contractEnd": {
-          "description": "Data de término do contrato trabalho/experiência",
-          "type": "string",
-          "format": "date-time",
-          "exemple": "yyyy-mm-ddThh:mm:ss+|-hh:mm",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": "SRAXX0.RA_FILIAL",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "employeeType": {
-          "description": "Tipo de Funcionário",
-          "type": "string",
-          "exemple": "",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": "SRAXX0.RA_FILIAL",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "privateCitizen": {
-          "description": "Número da Pessoa Física",
-          "type": "string",
-          "exemple": "",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": "SRAXX0.RA_FILIAL",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "registrationDigit": {
-          "description": "Dígito Verificador do Funcionário",
-          "type": "string",
-          "exemple": "",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": "SRAXX0.RA_FILIAL",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "transferenceAdmissionDate": {
-          "description": "Data de Transferência",
-          "type": "string",
-          "format": "date-time",
-          "exemple": "yyyy-mm-ddThh:mm:ss+|-hh:mm",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": "SRAXX0.RA_FILIAL",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "dateOfSalaryChange": {
-          "description": "Data de alteração salarial",
-          "type": "string",
-          "format": "date-time",
-          "exemple": "yyyy-mm-ddThh:mm:ss+|-hh:mm",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": "SRAXX0.RA_FILIAL",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "email": {
-          "description": "Email do funcionário",
-          "type": "string",
-          "exemple": "",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": "SRAXX0.RA_FILIAL",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "monthlyWorkingHours": {
-          "description": "Jornada de trabalho mensal (número de horas)",
-          "type": "integer",
-          "format": "int64",
-          "exemple": "",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": "SRAXX0.RA_FILIAL",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "wageTableInternalId": {
-          "description": "Tabela de Faixa do Funcionario",
-          "type": "string",
-          "exemple": "",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": "SRAXX0.RA_FILIAL",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false,
-              "note": ""
-            },
-            {
-              "product": "RM",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            },
-            {
-              "product": "DATASUL",
-              "field": "",
-              "required": true,
-              "type": "string",
-              "available": true,
-              "canUpdate": false
-            }
-
-          ]
-        },
-        "typeOfSalaryChange": {
-          "description": "Tipo da Alteração Salarial",
-          "type": "string",
-          "exemple": "",
-          "x-totvs": [
-            {
-              "product": "PROTHEUS",
-              "field": "SRAXX0.RA_FILIAL",
+              "field": "SRAXX0.RA_NOME",
               "required": true,
               "type": "string",
               "available": true,
@@ -2508,6 +1170,7 @@
             }
           ]
         }
+
       }
     }
   }
