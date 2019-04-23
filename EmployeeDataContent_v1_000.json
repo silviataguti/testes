@@ -1,3 +1,4 @@
+
 { 
 	"openapi": "3.0.1",
 	"servers": [
@@ -20,63 +21,36 @@
 		"title": "Relação de Funcionários - Global",
 		"contact": {
 			"name": "T-Talk",
-			"url": "API.Totvs.com.br",
+			"url": "https://api.totvs.com.br",
 			"email": "comiteintegracao@totvs.com.br" 
 		},
 		"x-totvs": {
 			"messageDocumentation": {
-				"name": "EmployeeDataContent",
+				"name": "Relação de Funcionários - Global",
 				"description": "Cadastro de Funcionários na base da TOTVS",
 				"segment": "Recursos Humanos"
 			},
 			"productInformation": [
 				{
-					"product": "PROTHEUS",
-					"contact": "Reginaldo.Lyra@totvs.com.br",
-					"description": "",
-					"adapter": "GPA010API",
-					"helpUrl": "link aqui"
-				},
-				{
-					"product": "RM",
-					"contact": "tiago.santana@totvs.com.br",
+					"product": "Protheus",
+					"contact": "reginaldo.Lyra@totvs.com.br",
 					"description": "Cadastro de Funcionários na base da TOTVS",
-					"adapter": "",
-					"helpUrl": "link aqui"
-				},
-                {
-					"product": "DATASUL",
-					"contact": "",
-					"description": "Cadastro de Funcionários na base da TOTVS",
-					"adapter": "",
-					"helpUrl": "link aqui"
+					"adapter": "GPA010API.prw"
 				}
 			]
 		}
 	},
 	"paths": {
-		"/employeedatacontent": {
+		"/EmployeeDataContent": {
 			"get": {
 				"tags": [
-					"employeedatacontent"
+					"EmployeeDataContent"
 				],
 				"summary": "Retorna todos os registros de funcionários e seus respectivos dados complementares(Ex:Departamento, Centro de Custo)",
 				"x-totvs": {
 					"productInformation": [
 						{
-							"product": "PROTHEUS",
-							"available": true,
-							"note": "Este verbo esta disponivel com todos os parametros",
-							"minimalVersion": "12.1.23"
-						},
-						{
-							"product": "RM",
-							"available": true,
-							"note": "Este verbo esta disponivel com todos os parametros",
-							"minimalVersion": "12.1.23"
-						},
-						{
-							"product": "DATASUL",
+							"product": "Protheus",
 							"available": true,
 							"note": "Este verbo esta disponivel com todos os parametros",
 							"minimalVersion": "12.1.23"
@@ -96,7 +70,7 @@
 						"$ref": "https://raw.githubusercontent.com/totvs/ttalk-standard-message/master/jsonschema/apis/types/totvsApiTypesBase.json#/parameters/PageSize"
 					},
 					{
-						"$ref": "https://raw.githubusercontent.com/totvs/ttalk-standard-message/master/jsonschema/apis/types/totvsApiTypesBase.json#/parameters/order"
+						"$ref": "https://raw.githubusercontent.com/totvs/ttalk-standard-message/master/jsonschema/apis/types/totvsApiTypesBase.json#/parameters/Order"
 					},
 					{
 						"$ref": "#/components/parameters/product"
@@ -111,13 +85,23 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "https://raw.githubusercontent.com/totvs/ttalk-standard-message/master/jsonschema/schemas/events/EmployeeDataContent_1_000.json#/definitions/PagedEmployeeDataContent"
+									"$ref": "https://raw.githubusercontent.com/totvs/ttalk-standard-message/employeedatacontent/v1/1_000/jsonschema/schemas/EmployeeDataContent_1_000.json#/definitions/PagedEmployeeDataContent"
 								}
 							}
 						}
 					},
 					"400": {
 						"description": "Erro no momento da listagem dos registros de funcionários.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "https://raw.githubusercontent.com/totvs/ttalk-standard-message/master/jsonschema/apis/types/totvsApiTypesBase.json#/definitions/ErrorModel"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Nenhum registro localizado.",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -140,6 +124,16 @@
 				"required": true,
 				"schema": {
 					"type": "string"
+					},
+					"x-totvs": {
+						"productInformation": [
+							{
+								"product": "Protheus",
+								"available": true,
+								"note": "Produto Protheus,RM ou DataSul",
+								"minimalVersion": "12.1.21"
+							}
+						]
 					}
 				},
 			"updateDate": {
@@ -150,6 +144,16 @@
 				"example": "YYYY-MM-DDThh:mm:ssZ",
 				"schema": {
 					"type": "string"
+				},
+				"x-totvs": {
+					"productInformation": [
+						{
+							"product": "Protheus",
+							"available": true,
+							"note": "Data de atualização da ultima requisição.",
+							"minimalVersion": "12.1.23"
+						}
+					]
 				}
 			}
 		},
