@@ -1,9 +1,9 @@
 {
     "$schema": "https://raw.githubusercontent.com/totvs/ttalk-standard-message/master/jsonschema/schemas/events/EmployeeDataContent_1_000.json#",
   "info": {
-    "description": "Schema para consulta de beneficiários para a linha de produtos Totvs - Mensagem global utilizando o conceito REST/JSON",
+    "description": "Contrato de Mensagem Padronizada para beneficiários da linha de produtos Totvs - Mensagem global utilizando o conceito REST/JSON",
     "version": "1.000",
-    "title": "Relação de beneficiários - Global",
+    "title": "Funcionário e seus dependentes que possuem benefícios a eles concedidos",
     "contact": {
       "name": "T-Talk",
       "url": "API.Totvs.com.br",
@@ -12,7 +12,7 @@
     "x-totvs": {
       "messageDocumentation": {
         "name": "BeneficiariesDataContent",
-        "description": "Esta api tem por objetivos disponibilizar para o cliente interessado em Consultar dados de beneficiários, possibilitando criar integrações dos mais variádos tipos que necessitem dos dados de seus beneficiários.",
+        "description": "Esta api tem por objetivos disponibilizar para o cliente interessado os dados do beneficiários, possibilitando consultar os dados de seus beneficiários.",
         "segment": "Recursos Humanos"
       },
       "productInformation": [
@@ -60,7 +60,6 @@
               "format": "date-time",
               "example": "yyyy-mm-ddThh:mm:ss+|-hh:mm"
             },
-
             "numberOfRecords": {
               "type": "int32",
               "format": "999.999",
@@ -83,7 +82,7 @@
     },
     "BeneficiariesDataContentItem": {
       "type": "object",
-      "description": "Descreve os dados do Beneficiário",
+      "description": "Descreve os dados de um registro do Beneficiário",
       "properties": {
         "companyKey": {
           "description": "Agrupamento de Empresa, Unidade de negócio e Filial",
@@ -168,12 +167,12 @@
             },
             {
               "product": "RM",
-              "field": "",
-              "required": false,
+              "field": "VBENEFICIARIOTMP.CHAPA | VBENEFICIARIOTMP.NRODEPEND",
+              "required": true,
               "type": "string",
               "available": false,
               "canUpdate": false,
-              "note": "No RM não há um código que defina um beneficiário pois este conceito é a junção de outros cadastros"
+              "note": "Beneficiário é o funcionário(titular) identificado pelo campo CHAPA ou seu dependente identificado pelo campo NRODEPEND, quando NRODEPEND for zero refere-se ao titular"
             },
             {
               "product": "DATASUL",
@@ -207,7 +206,7 @@
               "type": "string",
               "available": true,
               "canUpdate": false,
-              "note": "No RM foi criado o alias 'VBENEFICIARIOTMP' que é a junção das tabelas VBENEFVINCFUNC e VBENEFVINCDEPEND. No titular o campo NRODEPEND será o valor 00"
+              "note": "Criado o alias 'VBENEFICIARIOTMP' que é a junção das tabelas VBENEFVINCFUNC e VBENEFVINCDEPEND. No titular o campo NRODEPEND será o valor 00"
             },
             {
               "product": "DATASUL",
@@ -217,7 +216,6 @@
               "available": true,
               "canUpdate": false
             }
-
           ]
         },
         "BenefitsVendorCode": {
@@ -236,11 +234,12 @@
             },
             {
               "product": "RM",
-              "field": "VBENEFFORNECEDORES.CODFORNECEDORBENEFICIO",
-              "required": true,
+              "field": "VBENEFICIARIOTMP.CODFORNECEDORBENEFICIO",
+              "required": false,
               "type": "string",
               "available": true,
-              "canUpdate": false
+              "canUpdate": false,
+              "note": "O fornecedor de um benefício é acessado pelo vínculo do contrato 'VBENEFCONTRATOS' com o benefício 'VBENEFICIOS' lançado ao beneficiário 'VBENEFVINCFUNC' ou 'VBENEFVINCDEPEND'"
             },
             {
               "product": "DATASUL",
@@ -269,7 +268,7 @@
             {
               "product": "RM",
               "field": "VBENEFICIARIOTMP.CODCOLIGADA + VBENEFICIARIOTMP.CODFORNECEDORBENEFICIO",
-              "required": true,
+              "required": false,
               "type": "string",
               "available": true,
               "canUpdate": false
@@ -285,9 +284,10 @@
           ]
         },
         "BenefitVendorSegmentCode": {
-          "description": "Código do tipo de segmento do fornecedor do Benefício",
+          "description": "Código do tipo de segmento do fornecedor do Benefício: 1 - Assistência Médica | 2 - Assistência Odontológica ",
           "type": "string",
           "exemple": "1",
+          "enum": [ "1", "2" ],
           "x-totvs": [
             {
               "product": "PROTHEUS",
@@ -301,11 +301,11 @@
             {
               "product": "RM",
               "field": "VBENEFICIARIOTMP.CODTIPOFORNECEDORBENEFICIO",
-              "required": true,
+              "required": false,
               "type": "smallint",
               "available": true,
               "canUpdate": false,
-              "note": "1 - Ass. Médica, 2 - Ass. Odontolófica ..."
+              "note": "O tipo do segmento de um fornecedor é registrado na tabela dinamica 'VBENEFTPOFORN' vinculada ao fornecedor pelo campo VBENEFFORNECEDORES.CODTIPOFORNECEDORBENEFICIO"
             },
             {
               "product": "DATASUL",
@@ -334,10 +334,11 @@
             {
               "product": "RM",
               "field": "VBENEFICIARIOTMP.CODBENEFICIO",
-              "required": true,
+              "required": false,
               "type": "string",
               "available": true,
-              "canUpdate": false
+              "canUpdate": false,
+              "note": "Código do beneficio registrado na tabela VBENEFICIOS.CODBENEFICIO vinculados as tabelas VBENEFVINCFUNC ou VBENEFVINCDEPEND"
             },
             {
               "product": "DATASUL",
@@ -350,7 +351,7 @@
           ]
         },
         "BenefitInternalId": {
-          "description": "Código do Benefício",
+          "description": "Identificador Interno do Benefício",
           "type": "string",
           "exemple": "001",
           "x-totvs": [
@@ -366,10 +367,12 @@
             {
               "product": "RM",
               "field": "VBENEFICIARIOTMP.CODCOLIGADA + VBENEFICIARIOTMP.CODBENEFICIO",
-              "required": true,
+              "required": false,
               "type": "string",
               "available": true,
-              "canUpdate": false
+              "canUpdate": false,
+              "note": "Identificado pelos campos VBENEFICIOS.CODCOLIGADA + VBENEFICIOS.CODBENEFICIO vinculados as tabelas VBENEFVINCFUNC ou VBENEFVINCDEPEND"
+
             },
             {
               "product": "DATASUL",
@@ -384,7 +387,8 @@
         "beginDate": {
           "description": "Início da vigência do Benefício ao beneficiário",
           "type": "string",
-          "exemple": "001",
+          "format": "date-time",
+          "exemple": "2018-07-15T15:11:22",
           "x-totvs": [
             {
               "product": "PROTHEUS",
@@ -398,10 +402,11 @@
             {
               "product": "RM",
               "field": "VBENEFICIARIOTMP.DTINICIO",
-              "required": true,
-              "type": "datetime",
+              "required": false,
+              "type": "datetime2",
               "available": true,
-              "canUpdate": false
+              "canUpdate": false,
+              "note": "Data do inicio da vigência do beneficio ao funcionário ou seu dependente nos campos VBENEFVINCFUNC.DTINICIO ou VBENEFVINCDEPEND.DTINICIO"
             },
             {
               "product": "DATASUL",
@@ -416,7 +421,8 @@
         "FinalDate": {
           "description": "Fim da vigência do Benefício ao beneficiário",
           "type": "string",
-          "exemple": "001",
+          "format": "date-time",
+          "exemple": "2019-02-15T13:13:23",
           "x-totvs": [
             {
               "product": "PROTHEUS",
@@ -430,10 +436,11 @@
             {
               "product": "RM",
               "field": "VBENEFICIARIOTMP.DTTERMINO",
-              "required": true,
+              "required": false,
               "type": "datetime",
               "available": true,
-              "canUpdate": false
+              "canUpdate": false,
+              "note": "Data do inicio da vigência do beneficio ao funcionário ou seu dependente nos campos VBENEFVINCFUNC.DTTERMINO ou VBENEFVINCDEPEND.DTTERMINO"
             },
             {
               "product": "DATASUL",
@@ -446,7 +453,7 @@
           ]
         },
         "ContractNumberCode": {
-          "description": "Identificador do Contrato",
+          "description": "Código do Contrato",
           "type": "string",
           "exemple": "00001",
           "x-totvs": [
@@ -465,7 +472,8 @@
               "required": true,
               "type": "string",
               "available": true,
-              "canUpdate": false
+              "canUpdate": false,
+              "note": "O contrato é acessado pelo vínculo do contrato 'VBENEFCONTRATOS' com o benefício 'VBENEFICIOS' lançado ao beneficiário 'VBENEFVINCFUNC' ou 'VBENEFVINCDEPEND'"
             },
             {
               "product": "DATASUL",
@@ -480,7 +488,7 @@
         "ContractNumberInternalId": {
           "description": "Identificador interno do Contrato",
           "type": "string",
-          "exemple": "00001",
+          "exemple": "1|00001",
           "x-totvs": [
             {
               "product": "PROTHEUS",
@@ -493,11 +501,12 @@
             },
             {
               "product": "RM",
-              "field": "VBENEFICIARIOTMP.CODCOLIGADA + VBENEFICIARIOTMP.CODCONTRATO",
-              "required": true,
+              "field": "VBENEFICIARIOTMP.CODCOLIGADA | VBENEFICIARIOTMP.CODCONTRATO",
+              "required": false,
               "type": "string",
               "available": true,
-              "canUpdate": false
+              "canUpdate": false,
+              "note": ""
             },
             {
               "product": "DATASUL",
@@ -529,7 +538,8 @@
               "required": true,
               "type": "string",
               "available": true,
-              "canUpdate": false
+              "canUpdate": false,
+              "note": "valor do campo CHAPA registrado nas tabelas VBENEFVINCFUNC ou VBENEFVINCDEPEND"
             },
             {
               "product": "DATASUL",
@@ -594,7 +604,7 @@
               "type": "smallint",
               "available": true,
               "canUpdate": false,
-              "note": "Quando for 00 representa o Titular e diferente de 00 será o identificador do Dependente"
+              "note": "Quando for 00 representa o Titular e diferente de 00 será o identificador do Dependente campo NRODEPEND registrado na tabela VBENEFVINCDEPEND"
             },
             {
               "product": "DATASUL",
@@ -607,8 +617,9 @@
           ]
         },
         "DegreeOfRelatedness": {
-          "description": "Grau de parentesco do dependente com o Titular",
+          "description": "Grau de parentesco do dependente com o Titular: T - Titular, C - Casado, D - desquitado, E - União Estável, I - Divorciado, O - Outros, P - Separado, S - Solteiro, V - Viúvo",
           "type": "string",
+          "enum": [ "T", "C", "D", "E", "I", "O", "P", "S", "V" ],
           "exemple": "T",
           "x-totvs": [
             {
@@ -623,11 +634,11 @@
             {
               "product": "RM",
               "field": "VBENEFICIARIOTMP.CODGRAUPARENTESCO",
-              "required": true,
+              "required": false,
               "type": "string",
               "available": true,
               "canUpdate": false,
-              "note": "Será 'T' quando o for o titular e seguirá a codificação da tabela PCODPARENT"
+              "note": "Será 'T' quando o for o titular e seguirá a codificação da tabela PCODPARENT para os dependentes"
             },
             {
               "product": "DATASUL",
@@ -646,20 +657,21 @@
           "x-totvs": [
             {
               "product": "PROTHEUS",
-              "field": "VBENEFICIARIOTMP.NOME",
-              "required": true,
+              "field": "",
+              "required": false,
               "type": "string",
               "available": true,
               "canUpdate": false,
-              "note": "Pode ser o nome do funcionário PFUNC.NOME como o nome do dependente PFDEPEND.NOME"
+              "note": ""
             },
             {
               "product": "RM",
-              "field": "",
-              "required": true,
+              "field": "VBENEFICIARIOTMP.NOME",
+              "required": false,
               "type": "string",
               "available": true,
-              "canUpdate": false
+              "canUpdate": false,
+              "note": "Pode ser o nome do funcionário PFUNC.NOME como o nome do dependente PFDEPEND.NOME ambos vinculados as tabelas VBENEFVINCFUNC ou VBENEFVINCDEPEND"
             },
             {
               "product": "DATASUL",
@@ -671,7 +683,6 @@
             }
           ]
         },
-
         "BenefitCPF": {
           "description": "CPF do Beneficiário",
           "type": "string",
@@ -689,11 +700,11 @@
             {
               "product": "RM",
               "field": "VBENEFICIARIOTMP.CPF",
-              "required": true,
+              "required": false,
               "type": "string",
               "available": true,
               "canUpdate": false,
-              "note": "O CPF deverá ser informado somente com numeros sem os caracteres de formatação"
+              "note": "O CPF deverá ser informado somente com numeros sem os caracteres de formatação vinculados a (PPESSOA.CPF x PFUNC) ou PFDEPEND.CPF vinculados as tabelas VBENEFVINCFUNC ou VBENEFVINCDEPEND"
             },
             {
               "product": "DATASUL",
@@ -705,7 +716,6 @@
             }
           ]
         },
-
         "MotherName": {
           "description": "Nome da Mãe do beneficiário titular",
           "type": "string",
@@ -723,11 +733,11 @@
             {
               "product": "RM",
               "field": "VBENEFICIARIOTMP.NOMEMAE",
-              "required": true,
+              "required": false,
               "type": "string",
               "available": true,
               "canUpdate": false,
-              "note": "O nome da mãe só será informado no beneficiário titular"
+              "note": "O nome da mãe só será informado no beneficiário titular e será o dependnete na PFDEPEND com o campo GRAUPARENTESCO '7' Mãe "
             },
             {
               "product": "DATASUL",
@@ -739,10 +749,10 @@
             }
           ]
         },
-
         "Gender": {
-          "description": "Sexo do beneficiário",
+          "description": "Sexo do beneficiário: M - Masculino, F - Feminino",
           "type": "string",
+          "enum": [ "M", "F" ],
           "exemple": "M",
           "x-totvs": [
             {
@@ -757,11 +767,11 @@
             {
               "product": "RM",
               "field": "VBENEFICIARIOTMP.SEXO",
-              "required": true,
+              "required": false,
               "type": "string",
               "available": true,
               "canUpdate": false,
-              "nome": "M - Masculino; F - Feminino"
+              "nome": "Será o campo PPESSOA.SEXO vinculada a PFUNC.CODPESSOA quando for tabela VBENEFVINCFUNC e PFDEPEND.SEXO quando vir da tabela VBENEFVINCDEPEND"
             },
             {
               "product": "DATASUL",
@@ -773,7 +783,6 @@
             }
           ]
         },
-
         "MaritalState": {
           "description": "Estado Civil C - Casado | D - Desquitado | E - União Estável | I - Divorciado | O - Outros | P - Separado | S - Solteiro | V - Viúvo",
           "type": "string",
@@ -795,7 +804,8 @@
               "required": true,
               "type": "string",
               "available": true,
-              "canUpdate": false
+              "canUpdate": false,
+              "note": "Será o campo PPESSOA.ESTADOCIVIL vinculada a PFUNC.CODPESSOA quando for tabela VBENEFVINCFUNC e PFDEPEND.ESTADOCIVIL quando vir da tabela VBENEFVINCDEPEND"
             },
             {
               "product": "DATASUL",
@@ -807,15 +817,15 @@
             }
           ]
         },
-
-        "Data Nasc.  ": {
-          "description": "Nome do Funcionario",
+        "Birth": {
+          "description": "Data de aniversário do beneficiário",
           "type": "string",
-          "exemple": "",
+          "format": "datetime",
+          "exemple": "1969-02-15T13:13:23",
           "x-totvs": [
             {
               "product": "PROTHEUS",
-              "field": "SRAXX0.RA_NOME",
+              "field": "",
               "required": true,
               "type": "string",
               "available": true,
@@ -824,11 +834,12 @@
             },
             {
               "product": "RM",
-              "field": "",
+              "field": "VBENEFICIARIOTMP.DTNASCIMENTO",
               "required": true,
               "type": "string",
               "available": true,
-              "canUpdate": false
+              "canUpdate": false,
+              "note": "Será o campo PPESSOA. DTNASCIMENTO vinculada a PFUNC.CODPESSOA quando for tabela VBENEFVINCFUNC e PFDEPEND. DTNASCIMENTO quando vir da tabela VBENEFVINCDEPEND"
             },
             {
               "product": "DATASUL",
@@ -840,15 +851,14 @@
             }
           ]
         },
-
-        "R.G.        ": {
-          "description": "Nome do Funcionario",
+        "identityNumber": {
+          "description": "Identidade da pessoa (RG)",
           "type": "string",
-          "exemple": "",
+          "exemple": "M 267392",
           "x-totvs": [
             {
               "product": "PROTHEUS",
-              "field": "SRAXX0.RA_NOME",
+              "field": "",
               "required": true,
               "type": "string",
               "available": true,
@@ -857,11 +867,12 @@
             },
             {
               "product": "RM",
-              "field": "",
+              "field": "VBENEFICIARIOTMP.CARTIDENTIDADE",
               "required": true,
               "type": "string",
               "available": true,
-              "canUpdate": false
+              "canUpdate": false,
+              "note": "Será o campo PPESSOA.CARTIDENTIDADE vinculada a PFUNC.CODPESSOA quando for tabela VBENEFVINCFUNC e e Vazio quando vir da tabela VBENEFVINCDEPEND"
             },
             {
               "product": "DATASUL",
@@ -873,15 +884,14 @@
             }
           ]
         },
-
-        "Orgão emissor": {
-          "description": "Nome do Funcionario",
+        "IdentityNumberEmitterAgency": {
+          "description": "Orgão emissor da identidade da pessoa (RG)",
           "type": "string",
           "exemple": "",
           "x-totvs": [
             {
               "product": "PROTHEUS",
-              "field": "SRAXX0.RA_NOME",
+              "field": "",
               "required": true,
               "type": "string",
               "available": true,
@@ -890,11 +900,12 @@
             },
             {
               "product": "RM",
-              "field": "",
+              "field": "VBENEFICIARIOTMP.ORGEMISSORIDENT",
               "required": true,
               "type": "string",
               "available": true,
-              "canUpdate": false
+              "canUpdate": false,
+              "note": "Será o campo PPESSOA.ORGEMISSORIDENT vinculada a PFUNC.CODPESSOA quando for tabela VBENEFVINCFUNC e e Vazio quando vir da tabela VBENEFVINCDEPEND"
             },
             {
               "product": "DATASUL",
@@ -906,15 +917,14 @@
             }
           ]
         },
-
-        "Matric/Cartei Provedor Saude": {
-          "description": "Nome do Funcionario",
+        "MedicalAssistanceCard": {
+          "description": "Numero do Cartão de Assistência Médica",
           "type": "string",
           "exemple": "",
           "x-totvs": [
             {
               "product": "PROTHEUS",
-              "field": "SRAXX0.RA_NOME",
+              "field": "",
               "required": true,
               "type": "string",
               "available": true,
@@ -923,11 +933,12 @@
             },
             {
               "product": "RM",
-              "field": "",
-              "required": true,
+              "field": "VBENEFICIARIOTMP.NUMEROCARTAOASSMEDICA",
+              "required": false,
               "type": "string",
               "available": true,
-              "canUpdate": false
+              "canUpdate": false,
+              "note": "Será o valor de VBENEFCARTAO.NUMEROCARTAO referente a ultima vigência em aberto VBENEFCARTAO.DTFIMVIGENCIA seja do Tiular vinculado (PFUNC x VBENEFVINCFUNC) Ou Dependente vinculado a (PFDEPEND x VBENEFVINCDEPEND) desde que o fornecedor de beneficio VBENEFFORNECEDORES tenha o campo CODTIPOFORNECEDORBENEFICIO igual a '1' "
             },
             {
               "product": "DATASUL",
@@ -939,15 +950,14 @@
             }
           ]
         },
-
-        "Matric/Cartei Provedor Odonto": {
-          "description": "Nome do Funcionario",
+        "DentalAssistanceCardCode": {
+          "description": "Numero do Cartão de Assistência Odontológica",
           "type": "string",
           "exemple": "",
           "x-totvs": [
             {
               "product": "PROTHEUS",
-              "field": "SRAXX0.RA_NOME",
+              "field": "",
               "required": true,
               "type": "string",
               "available": true,
@@ -956,11 +966,12 @@
             },
             {
               "product": "RM",
-              "field": "",
-              "required": true,
+              "field": "VBENEFICIARIOTMP.NUMEROCARTAOODONTOLOGICO",
+              "required": false,
               "type": "string",
               "available": true,
-              "canUpdate": false
+              "canUpdate": false,
+              "note": "Será o valor de VBENEFCARTAO.NUMEROCARTAO referente a ultima vigência em aberto VBENEFCARTAO.DTFIMVIGENCIA seja do Tiular vinculado (PFUNC x VBENEFVINCFUNC) Ou Dependente vinculado a (PFDEPEND x VBENEFVINCDEPEND) desde que o fornecedor de beneficio VBENEFFORNECEDORES tenha o campo CODTIPOFORNECEDORBENEFICIO igual a '2' "
             },
             {
               "product": "DATASUL",
@@ -972,15 +983,14 @@
             }
           ]
         },
-
-        "Matric/Cartei Provedor Alimentação": {
-          "description": "Nome do Funcionario",
+        "FoodCardsCode": {
+          "description": "Numero do Cartão para Alimentação",
           "type": "string",
           "exemple": "",
           "x-totvs": [
             {
               "product": "PROTHEUS",
-              "field": "SRAXX0.RA_NOME",
+              "field": "",
               "required": true,
               "type": "string",
               "available": true,
@@ -989,11 +999,12 @@
             },
             {
               "product": "RM",
-              "field": "",
-              "required": true,
+              "field": "VBENEFICIARIOTMP.NUMEROCARTAOALIMENTACAO",
+              "required": false,
               "type": "string",
               "available": true,
-              "canUpdate": false
+              "canUpdate": false,
+              "note": "Será informa (Vazio)"
             },
             {
               "product": "DATASUL",
@@ -1005,15 +1016,14 @@
             }
           ]
         },
-
-        "Matric/Cartei Provedor Refeição": {
-          "description": "Nome do Funcionario",
+        "MealCardsCode": {
+          "description": "Numero do Cartão para Refeição",
           "type": "string",
           "exemple": "",
           "x-totvs": [
             {
               "product": "PROTHEUS",
-              "field": "SRAXX0.RA_NOME",
+              "field": "",
               "required": true,
               "type": "string",
               "available": true,
@@ -1022,11 +1032,12 @@
             },
             {
               "product": "RM",
-              "field": "",
-              "required": true,
+              "field": "VBENEFICIARIOTMP.NUMEROCARTAOREFEICAO",
+              "required": false,
               "type": "string",
               "available": true,
-              "canUpdate": false
+              "canUpdate": false,
+              "note": "Será informa (Vazio)"
             },
             {
               "product": "DATASUL",
@@ -1038,15 +1049,14 @@
             }
           ]
         },
-
-        "Nr Cartão Nacional de Saúde ": {
-          "description": "Nome do Funcionario",
+        "SUSCardCode": {
+          "description": "Numero do Cartão do SUS",
           "type": "string",
           "exemple": "",
           "x-totvs": [
             {
               "product": "PROTHEUS",
-              "field": "SRAXX0.RA_NOME",
+              "field": "",
               "required": true,
               "type": "string",
               "available": true,
@@ -1055,11 +1065,12 @@
             },
             {
               "product": "RM",
-              "field": "",
-              "required": true,
+              "field": "VBENEFICIARIOTMP.NUMEROCARTAOSUS",
+              "required": false,
               "type": "string",
               "available": true,
-              "canUpdate": false
+              "canUpdate": false,
+              "note": "Será o campo PFUNC.NUMEROCARTAOSUS quando for tabela VBENEFVINCFUNC e PFDEPEND.NUMEROCARTAOSUS quando vir da tabela VBENEFVINCDEPEND"
             },
             {
               "product": "DATASUL",
@@ -1071,15 +1082,15 @@
             }
           ]
         },
-
-        "De.Nasc.Vivo": {
-          "description": "Nome do Funcionario",
+        "BornAlive": {
+          "description": "Flag que determina se o beneficiário foi nascido vivo: 1 - Nascido Vivo , 0 - Não Nascido Vivo",
           "type": "string",
-          "exemple": "",
+          "enum": [ "1", "2" ],
+          "exemple": "1",
           "x-totvs": [
             {
               "product": "PROTHEUS",
-              "field": "SRAXX0.RA_NOME",
+              "field": "",
               "required": true,
               "type": "string",
               "available": true,
@@ -1088,11 +1099,12 @@
             },
             {
               "product": "RM",
-              "field": "",
-              "required": true,
+              "field": "VBENEFICIARIOTMP.NASCIDOVIVO",
+              "required": false,
               "type": "string",
               "available": true,
-              "canUpdate": false
+              "canUpdate": false,
+              "note": "Será um valor fixo '1' pois não se cadastra o dependente quando não Nasce Vivo"
             },
             {
               "product": "DATASUL",
@@ -1104,15 +1116,14 @@
             }
           ]
         },
-
-        "Peso(gr.) ": {
-          "description": "Nome do Funcionario",
+        "BeneficiaryWeight": {
+          "description": "Peso em (gr) do Beneficiário",
           "type": "string",
           "exemple": "",
           "x-totvs": [
             {
               "product": "PROTHEUS",
-              "field": "SRAXX0.RA_NOME",
+              "field": "",
               "required": true,
               "type": "string",
               "available": true,
@@ -1121,11 +1132,12 @@
             },
             {
               "product": "RM",
-              "field": "",
+              "field": "VBENEFICIARIOTMP.PESO",
               "required": true,
               "type": "string",
               "available": true,
-              "canUpdate": false
+              "canUpdate": false,
+              "note": "Assumirá o valor fixo (0) zero"
             },
             {
               "product": "DATASUL",
@@ -1137,15 +1149,14 @@
             }
           ]
         },
-
-        "Altura(cm.)  ": {
-          "description": "Nome do Funcionario",
+        "BeneficiaryTall": {
+          "description": "Altura em (cm) do beneficiário",
           "type": "string",
           "exemple": "",
           "x-totvs": [
             {
               "product": "PROTHEUS",
-              "field": "SRAXX0.RA_NOME",
+              "field": "",
               "required": true,
               "type": "string",
               "available": true,
@@ -1154,11 +1165,12 @@
             },
             {
               "product": "RM",
-              "field": "",
-              "required": true,
+              "field": "VBENEFICIARIOTMP.ALTURA",
+              "required": false,
               "type": "string",
               "available": true,
-              "canUpdate": false
+              "canUpdate": false,
+              "note": "Assumirá o valor fixo (0) zero"
             },
             {
               "product": "DATASUL",
@@ -1170,7 +1182,6 @@
             }
           ]
         }
-
       }
     }
   }
