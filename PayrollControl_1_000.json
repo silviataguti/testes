@@ -1,9 +1,9 @@
 {
-    "$schema": "https://raw.githubusercontent.com/totvs/ttalk-standard-message/master/jsonschema/schemas/events/PayrollControl_1_000.json#",
+    "$schema": "https://raw.githubusercontent.com/edvf82/testes/master/PayrollControl_1_000.json#",
     "info": {
 		"description": "Schema para entidade da folha de pagamento para a linha de produtos Totvs - Mensagem global utilizando o conceito REST/JSON",
 		"version": "1.000",
-        "title": "Relação da Folha de Pagamento",
+        "title": "RelaÃ§Ã£o da Folha de Pagamento",
         "contact": {
 			"name": "T-Talk",
 			"url": "API.Totvs.com.br",
@@ -12,7 +12,7 @@
 		"x-totvs": {
 			"messageDocumentation": {
 				"name": "PayrollControl",
-				"description": "Esta api tem por objetivos disponibilizar para o cliente interessado em integrar seus dados de folha de pagamento com sistemas de terceiros, possibilitando criar integrações dos mais variádos tipos que necessitem dos dados de seus colaboradores.",
+				"description": "Esta api tem por objetivos disponibilizar para o cliente interessado em integrar seus dados de folha de pagamento com sistemas de terceiros, possibilitando criar integraÃ§Ãµes dos mais variÃ¡dos tipos que necessitem dos dados de seus colaboradores.",
 				"segment": "Recursos Humanos"
             },
             "productInformation": [
@@ -83,10 +83,10 @@
 		},
         "PayrollControlItem": {
 			"type": "object",
-			"description": "Descreve os dados da folha de pagamento do funcionário",
+			"description": "Descreve os dados da folha de pagamento do funcionÃ¡rio",
 			"properties": {
 				"companyKey": {
-					"description": "Agrupamento de Empresa, Unidade de negócio e Filial",
+					"description": "Agrupamento de Empresa, Unidade de negÃ³cio e Filial",
                     "type": "string",
                     "exemple":"T1|0101|MG",
 					"x-totvs": [
@@ -97,7 +97,7 @@
 							"type": "string",
 							"available": true,
                             "canUpdate": false,
-                            "note":"não possui campo físico na tabela"                         
+                            "note":"nÃ£o possui campo fÃ­sico na tabela"                         
                         },
                         {
 							"product": "RM",
@@ -185,7 +185,7 @@
 					]
                 },    
                 "internalIdCode": {
-					"description": "InternalId do funcionário",
+					"description": "InternalId do funcionÃ¡rio",
                     "type": "string",
                     "exemple":"T1||D MG 01|000100",
 					"x-totvs": [
@@ -195,8 +195,8 @@
 							"required": true,
 							"type": "string",
 							"available": true,
-                            "canUpdate": false,
-                            "note":"o InternalID da empresa é formado empresa|RA_FILIAL. Tamanho entre 05 e 15"
+              "canUpdate": false,
+              "note":"o InternalID da empresa Ã© formado empresa|RA_FILIAL. Tamanho entre 05 e 15.Para periodo aberto sera utilizado RHRXX0.RHR_FILIAL+RHRXX0.RHR_MAT e para periodo fechado sera utilizado RHPXX0.RHP_FILIAL+RHPXX0.RHP_MAT"
                         },
                         {
 							"product": "RM",
@@ -251,7 +251,7 @@
 					]
                 },    
                 "MovimentDate": {
-					"description": "Data da Movimentação",
+					"description": "Data da MovimentaÃ§Ã£o",
 					"type": "string",
 					"format": "date-time",
                     "exemple":"yyyy-mm-ddThh:mm:ss+|-hh:mm",
@@ -417,7 +417,7 @@
 					]
                 },    
                 "productCode": {
-					"description": "Código do produto",
+					"description": "CÃ³digo do produto",
                     "type": "string",
                     "exemple":"",
 					"x-totvs": [
@@ -450,7 +450,7 @@
 					]
                 },    
                 "payrollIdentifier": {
-					"description": "Identificador do cálculo da folha de pagamento",
+					"description": "Identificador do cÃ¡lculo da folha de pagamento",
                     "type": "string",
                     "exemple":"T1||D MG 01|201812",
 					"x-totvs": [
