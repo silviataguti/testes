@@ -3,7 +3,7 @@
     "info": {
 		"description": "Schema para entidade da folha de pagamento para a linha de produtos Totvs - Mensagem global utilizando o conceito REST/JSON",
 		"version": "1.000",
-        "title": "RelaÃ§Ã£o da Folha de Pagamento",
+        "title": "Relação da Folha de Pagamento",
         "contact": {
 			"name": "T-Talk",
 			"url": "API.Totvs.com.br",
@@ -12,13 +12,13 @@
 		"x-totvs": {
 			"messageDocumentation": {
 				"name": "PayrollControl",
-				"description": "Esta api tem por objetivos disponibilizar para o cliente interessado em integrar seus dados de folha de pagamento com sistemas de terceiros, possibilitando criar integraÃ§Ãµes dos mais variÃ¡dos tipos que necessitem dos dados de seus colaboradores.",
+				"description": "Esta api tem por objetivos disponibilizar para o cliente interessado em integrar seus dados de folha de pagamento com sistemas de terceiros, possibilitando criar integrações dos mais variádos tipos que necessitem dos dados de seus colaboradores.",
 				"segment": "Recursos Humanos"
             },
             "productInformation": [
 				{
-					"product": "Protheus",
-					"contact": "reginaldo.Lyra@totvs.com.br",
+					"product": "PROTHEUS",
+					"contact": "Reginaldo.Lyra@totvs.com.br",
 					"description": "",
 					"adapter": "GPA011API",
 					"helpUrl": "link aqui"
@@ -31,7 +31,7 @@
 					"helpUrl": "link aqui"
                 },
                 {
-					"product": "Datasul",
+					"product": "DATASUL",
 					"contact": "",
 					"description": "",
 					"adapter": "",
@@ -40,7 +40,7 @@
 			]            
 		}
 	},    
-	
+    
     "definitions": {
         "PagedPayrollControl": {
 			"type": "object",
@@ -83,21 +83,21 @@
 		},
         "PayrollControlItem": {
 			"type": "object",
-			"description": "Descreve os dados da folha de pagamento do funcionÃ¡rio",
+			"description": "Descreve os dados da folha de pagamento do funcionário",
 			"properties": {
 				"companyKey": {
-					"description": "Agrupamento de Empresa, Unidade de negÃ³cio e Filial",
+					"description": "Agrupamento de Empresa, Unidade de negócio e Filial",
                     "type": "string",
                     "exemple":"T1|MG|01",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "",
 							"required": false,
 							"type": "string",
 							"available": true,
                             "canUpdate": false,
-                            "note":"nÃ£o possui campo fÃ­sico na tabela"                         
+                            "note":"não possui campo físico na tabela"                         
                         },
                         {
 							"product": "RM",
@@ -108,7 +108,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -124,7 +124,7 @@
                     "exemple":"D MG 01",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "TMP.TMP_FILIAL",
 							"required": true,
 							"type": "string",
@@ -141,7 +141,7 @@
                             "canUpdate": false                            
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -157,7 +157,7 @@
                     "exemple":"000100",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "TMP.TMP_MAT",
 							"required": true,
 							"type": "string",
@@ -174,7 +174,7 @@
                             "canUpdate": false                            
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -185,18 +185,18 @@
 					]
                 },    
                 "internalIdCode": {
-					"description": "InternalId do funcionÃ¡rio",
+					"description": "InternalId do funcionário",
                     "type": "string",
                     "exemple":"T1||D MG 01|000100",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "SM0.M0_CODIGO + TMP.TMP_FILIAL + TMP.TMP_MAT",
 							"required": true,
 							"type": "string",
 							"available": true,
                             "canUpdate": false,
-                            "note":"o InternalID da empresa Ã© formado empresa|RA_FILIAL. Tamanho entre 05 e 15.Para periodo aberto sera utilizado RHRXX0.RHR_FILIAL+RHRXX0.RHR_MAT e para periodo fechado sera utilizado RHPXX0.RHP_FILIAL+RHPXX0.RHP_MAT"
+                            "note":"o InternalID da empresa é formado empresa|RA_FILIAL. Tamanho entre 05 e 15.Para periodo aberto sera utilizado RHRXX0.RHR_FILIAL+RHRXX0.RHR_MAT e para periodo fechado sera utilizado RHPXX0.RHP_FILIAL+RHPXX0.RHP_MAT"
                         },
                         {
 							"product": "RM",
@@ -207,7 +207,7 @@
                             "canUpdate": false                            
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -218,13 +218,13 @@
 					]
                 },    
                 "MovimentDate": {
-					"description": "Data da MovimentaÃ§Ã£o",
+					"description": "Data da Movimentação",
 					"type": "string",
 					"format": "date-time",
                     "exemple":"yyyy-mm-ddThh:mm:ss+|-hh:mm",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "TMP.TMP_DATA",
 							"required": true,
 							"type": "string",
@@ -241,7 +241,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -257,7 +257,7 @@
                     "exemple":"1",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "TMP.TMP_ORIGEM",
 							"required": true,
 							"type": "string",
@@ -274,7 +274,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -290,7 +290,7 @@
                     "exemple":"001",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "TMP.TMP_CODFOR",
 							"required": true,
 							"type": "string",
@@ -306,8 +306,8 @@
 							"available": true,
 							"canUpdate": false
 						},
-                        {
-							"product": "Datasul",
+                        {,
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -323,7 +323,7 @@
                     "exemple":"1",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "TMP.TMP_TPFORN",
 							"required": true,
 							"type": "string",
@@ -340,7 +340,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -356,7 +356,7 @@
                     "exemple":"",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "TMP.TMP_CODCON",
 							"required": true,
 							"type": "string",
@@ -373,7 +373,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -384,12 +384,12 @@
 					]
                 },    
                 "productCode": {
-					"description": "CÃ³digo do produto",
+					"description": "Código do produto",
                     "type": "string",
                     "exemple":"",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "TMP.TMP_PLANO",
 							"required": true,
 							"type": "string",
@@ -406,7 +406,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -417,12 +417,12 @@
 					]
                 },    
                 "payrollIdentifier": {
-					"description": "Identificador do cÃ¡lculo da folha de pagamento",
+					"description": "Identificador do cálculo da folha de pagamento",
                     "type": "string",
                     "exemple":"001",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "TMP.TMP_PD",
 							"required": true,
 							"type": "string",
@@ -439,7 +439,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": false,
 							"type": "string",
@@ -456,7 +456,7 @@
                     "exemple":"999.00",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "TMP.TMP_VLRFUN",
 							"required": true,
 							"type": "integer",
@@ -473,7 +473,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -490,8 +490,8 @@
                     "exemple":"yyyy-mm-ddThh:mm:ss+|-hh:mm",
 					"x-totvs": [
 						{
-							"product": "Protheus",
-							"field": "TMP.TMP_DATPGT",
+							"product": "PROTHEUS",
+							"field": "TMP.TMP_DATPGT"
 							"required": true,
 							"type": "string",
 							"available": true,
@@ -507,7 +507,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -523,7 +523,7 @@
                     "exemple":"201810",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "TMP.TMP_COMPPG",
 							"required": true,
 							"type": "string",
@@ -540,7 +540,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
