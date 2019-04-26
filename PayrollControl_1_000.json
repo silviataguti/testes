@@ -40,7 +40,6 @@
 			]            
 		}
 	},    
-    
     "definitions": {
         "PagedPayrollControl": {
 			"type": "object",
