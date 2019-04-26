@@ -3,7 +3,7 @@
     "info": {
 		"description": "Schema para entidade da folha de pagamento para a linha de produtos Totvs - Mensagem global utilizando o conceito REST/JSON",
 		"version": "1.000",
-        "title": "RelaÃ§Ã£o da Folha de Pagamento",
+        "title": "Relação da Folha de Pagamento",
         "contact": {
 			"name": "T-Talk",
 			"url": "API.Totvs.com.br",
@@ -12,7 +12,7 @@
 		"x-totvs": {
 			"messageDocumentation": {
 				"name": "PayrollControl",
-				"description": "Esta api tem por objetivos disponibilizar para o cliente interessado em integrar seus dados de folha de pagamento com sistemas de terceiros, possibilitando criar integraÃ§Ãµes dos mais variÃ¡dos tipos que necessitem dos dados de seus colaboradores.",
+				"description": "Esta api tem por objetivos disponibilizar para o cliente interessado em integrar seus dados de folha de pagamento com sistemas de terceiros, possibilitando criar integrações dos mais variádos tipos que necessitem dos dados de seus colaboradores.",
 				"segment": "Recursos Humanos"
             },
             "productInformation": [
@@ -83,12 +83,12 @@
 		},
         "PayrollControlItem": {
 			"type": "object",
-			"description": "Descreve os dados da folha de pagamento do funcionÃ¡rio",
+			"description": "Descreve os dados da folha de pagamento do funcionário",
 			"properties": {
 				"companyKey": {
-					"description": "Agrupamento de Empresa, Unidade de negÃ³cio e Filial",
+					"description": "Agrupamento de Empresa, Unidade de negócio e Filial",
                     "type": "string",
-                    "exemple":"T1|0101|MG",
+                    "exemple":"T1|MG|01",
 					"x-totvs": [
 						{
 							"product": "PROTHEUS",
@@ -97,7 +97,7 @@
 							"type": "string",
 							"available": true,
                             "canUpdate": false,
-                            "note":"nÃ£o possui campo fÃ­sico na tabela"                         
+                            "note":"não possui campo físico na tabela"                         
                         },
                         {
 							"product": "RM",
@@ -125,12 +125,12 @@
 					"x-totvs": [
 						{
 							"product": "PROTHEUS",
-							"field": "SRAXX0.RA_FILIAL",
+							"field": "TMP.TMP_FILIAL",
 							"required": true,
 							"type": "string",
 							"available": true,
                             "canUpdate": false,
-                            "note":"pode ter tamanho entre 02 e 12 dependendo da configuração do Protheus"
+                            "note":"Para periodo aberto sera utilizado RHRXX0.RHR_FILIAL e para periodo fechado sera utilizado RHPXX0.RHP_FILIAL"
                         },
                         {
 							"product": "RM",
@@ -158,12 +158,12 @@
 					"x-totvs": [
 						{
 							"product": "PROTHEUS",
-							"field": "SRAXX0.RA_MAT",
+							"field": "TMP.TMP_MAT",
 							"required": true,
 							"type": "string",
 							"available": true,
                             "canUpdate": false,
-                            "note":""                         
+                            "note":"Para periodo aberto sera utilizado RHRXX0.RHR_MAT e para periodo fechado sera utilizado RHPXX0.RHP_MAT"                         
                         },
                         {
 							"product": "RM",
@@ -185,51 +185,18 @@
 					]
                 },    
                 "internalIdCode": {
-					"description": "InternalId do funcionÃ¡rio",
+					"description": "InternalId do funcionário",
                     "type": "string",
                     "exemple":"T1||D MG 01|000100",
 					"x-totvs": [
 						{
 							"product": "PROTHEUS",
-							"field": "SM0.M0_CODIGO + SRAXX0.RA_FILIAL + SRAXX0.RA_MAT",
-							"required": true,
-							"type": "string",
-							"available": true,
-              "canUpdate": false,
-              "note":"o InternalID da empresa Ã© formado empresa|RA_FILIAL. Tamanho entre 05 e 15.Para periodo aberto sera utilizado RHRXX0.RHR_FILIAL+RHRXX0.RHR_MAT e para periodo fechado sera utilizado RHPXX0.RHP_FILIAL+RHPXX0.RHP_MAT"
-                        },
-                        {
-							"product": "RM",
-							"field": "",
-							"required": true,
-							"type": "string",
-							"available": true,
-                            "canUpdate": false                            
-						},
-                        {
-							"product": "DATASUL",
-							"field": "",
-							"required": true,
-							"type": "string",
-							"available": true,
-                            "canUpdate": false                            
-						}
-
-					]
-                },    
-                "name": {
-					"description": "Nome do Funcionario",
-                    "type": "string",
-                    "exemple":"HENRIQUE ROBERTO A. DOS SANTOS",
-					"x-totvs": [
-						{
-							"product": "PROTHEUS",
-							"field": "SRAXX0.RA_NOME",
+							"field": "SM0.M0_CODIGO + TMP.TMP_FILIAL + TMP.TMP_MAT",
 							"required": true,
 							"type": "string",
 							"available": true,
                             "canUpdate": false,
-                            "note":""                         
+                            "note":"o InternalID da empresa é formado empresa|RA_FILIAL. Tamanho entre 05 e 15.Para periodo aberto sera utilizado RHRXX0.RHR_FILIAL+RHRXX0.RHR_MAT e para periodo fechado sera utilizado RHPXX0.RHP_FILIAL+RHPXX0.RHP_MAT"
                         },
                         {
 							"product": "RM",
@@ -237,7 +204,7 @@
 							"required": true,
 							"type": "string",
 							"available": true,
-							"canUpdate": false
+                            "canUpdate": false                            
 						},
                         {
 							"product": "DATASUL",
@@ -245,25 +212,25 @@
 							"required": true,
 							"type": "string",
 							"available": true,
-							"canUpdate": false
+                            "canUpdate": false                            
 						}
 
 					]
                 },    
                 "MovimentDate": {
-					"description": "Data da MovimentaÃ§Ã£o",
+					"description": "Data da Movimentação",
 					"type": "string",
 					"format": "date-time",
                     "exemple":"yyyy-mm-ddThh:mm:ss+|-hh:mm",
 					"x-totvs": [
 						{
 							"product": "PROTHEUS",
-							"field": "",
+							"field": "TMP.TMP_DATA",
 							"required": true,
 							"type": "string",
 							"available": true,
                             "canUpdate": false,
-                            "note":""                         
+                            "note":"Para periodo aberto sera utilizado RHRXX0.RHR_DATA e para periodo fechado sera utilizado RHPXX0.RHP_DTOCOR"                         
                         },
                         {
 							"product": "RM",
@@ -287,16 +254,16 @@
                 "originalRecord": {
 					"description": "Registro Original",
                     "type": "string",
-                    "exemple":"",
+                    "exemple":"1",
 					"x-totvs": [
 						{
 							"product": "PROTHEUS",
-							"field": "",
+							"field": "TMP.TMP_ORIGEM",
 							"required": true,
 							"type": "string",
 							"available": true,
                             "canUpdate": false,
-                            "note":""                         
+                            "note":"Para periodo aberto sera utilizado RHRXX0.RHR_ORIGEM e para periodo fechado sera utilizado RHPXX0.RHP_ORIGEM"                         
                         },
                         {
 							"product": "RM",
@@ -320,16 +287,16 @@
                 "providerCode": {
 					"description": "Codigo do provedor",
                     "type": "string",
-                    "exemple":"",
+                    "exemple":"001",
 					"x-totvs": [
 						{
 							"product": "PROTHEUS",
-							"field": "",
-							"required": false,
+							"field": "TMP.TMP_CODFOR",
+							"required": true,
 							"type": "string",
 							"available": true,
                             "canUpdate": false,
-                            "note":""                         
+                            "note":"Para periodo aberto sera utilizado RHRXX0.RHR_CODFOR e para periodo fechado sera utilizado RHPXX0.RHP_CODFOR"                         
                         },
                         {
 							"product": "RM",
@@ -339,7 +306,7 @@
 							"available": true,
 							"canUpdate": false
 						},
-                        {
+                        {,
 							"product": "DATASUL",
 							"field": "",
 							"required": true,
@@ -353,16 +320,16 @@
                 "providerType": {
 					"description": "Tipo do provedor",
                     "type": "string",
-                    "exemple":"",
+                    "exemple":"1",
 					"x-totvs": [
 						{
 							"product": "PROTHEUS",
-							"field": "",
+							"field": "TMP.TMP_TPFORN",
 							"required": true,
 							"type": "string",
 							"available": true,
                             "canUpdate": false,
-                            "note":""                         
+                            "note":"Para periodo aberto sera utilizado RHRXX0.RHR_TPFORN e para periodo fechado sera utilizado RHPXX0.RHP_TPFORN"                         
                         },
                         {
 							"product": "RM",
@@ -390,12 +357,12 @@
 					"x-totvs": [
 						{
 							"product": "PROTHEUS",
-							"field": "",
+							"field": "TMP.TMP_CODCON",
 							"required": true,
 							"type": "string",
 							"available": true,
                             "canUpdate": false,
-                            "note":""                         
+                            "note":"O codigo do Contrato da tabela S074 e conteudo do CODCON da RCCXX0.RCC_CONTEUDO, localizando pelo codigo do Fornecedor RHRXX0.RHR_CODFOR quando o periodo estiver aberto e RHPXX0.RHP_CODFOR quando fechado"                         
                         },
                         {
 							"product": "RM",
@@ -417,18 +384,18 @@
 					]
                 },    
                 "productCode": {
-					"description": "CÃ³digo do produto",
+					"description": "Código do produto",
                     "type": "string",
                     "exemple":"",
 					"x-totvs": [
 						{
 							"product": "PROTHEUS",
-							"field": "",
+							"field": "TMP.TMP_PLANO",
 							"required": true,
 							"type": "string",
 							"available": true,
                             "canUpdate": false,
-                            "note":""                         
+                            "note":"Para periodo aberto sera utilizado RHRXX0.RHR_PLANO e para periodo fechado sera utilizado RHPXX0."                         
                         },
                         {
 							"product": "RM",
@@ -450,18 +417,18 @@
 					]
                 },    
                 "payrollIdentifier": {
-					"description": "Identificador do cÃ¡lculo da folha de pagamento",
+					"description": "Identificador do cálculo da folha de pagamento",
                     "type": "string",
-                    "exemple":"T1||D MG 01|201812",
+                    "exemple":"001",
 					"x-totvs": [
 						{
 							"product": "PROTHEUS",
-							"field": "",
+							"field": "TMP.TMP_PD",
 							"required": true,
 							"type": "string",
 							"available": true,
                             "canUpdate": false,
-                            "note":""                         
+                            "note":"Para periodo aberto sera utilizado RHRXX0.RHR_PD e para periodo fechado sera utilizado RHPXX0.RHP_PD"                         
                         },
                         {
 							"product": "RM",
@@ -490,12 +457,12 @@
 					"x-totvs": [
 						{
 							"product": "PROTHEUS",
-							"field": "",
+							"field": "TMP.TMP_VLRFUN",
 							"required": true,
 							"type": "integer",
 							"available": true,
                             "canUpdate": false,
-                            "note":""                         
+                            "note":"Para periodo aberto sera utilizado RHRXX0.RHR_VLRFUN e para periodo fechado sera utilizado RHPXX0.RHP_VLRFUN"                         
                         },
                         {
 							"product": "RM",
@@ -524,12 +491,12 @@
 					"x-totvs": [
 						{
 							"product": "PROTHEUS",
-							"field": "",
+							"field": "TMP.TMP_DATPGT"
 							"required": true,
 							"type": "string",
 							"available": true,
                             "canUpdate": false,
-                            "note":""                         
+                            "note":"Para periodo aberto sera utilizado RCHXX0.RCH_DTPAGO do roteiro PLA comparando o periodo RHRXX.RHR_COMPPG e para periodo fechado sera utilizado RHPXX0.RHP_DATPGT"                         
                         },
                         {
 							"product": "RM",
@@ -557,12 +524,12 @@
 					"x-totvs": [
 						{
 							"product": "PROTHEUS",
-							"field": "",
+							"field": "TMP.TMP_COMPPG",
 							"required": true,
 							"type": "string",
 							"available": true,
                             "canUpdate": false,
-                            "note":""                         
+                            "note":"Para periodo aberto sera utilizado RHRXX0.RHR_COMPPG e para periodo fechado sera utilizado RHPXX0.RHP_COMPPG"                         
                         },
                         {
 							"product": "RM",
@@ -585,4 +552,3 @@
 			}
 		}
 	}
-}
