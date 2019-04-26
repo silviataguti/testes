@@ -112,7 +112,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "https://raw.githubusercontent.com/totvs/ttalk-standard-message/json/v1/1_000/jsonschema/schemas/Payroll%20Control_1_000%20.json#/definitions/PagedEmployeeDataContent"
+									"$ref": "https://raw.githubusercontent.com/edvf82/testes/master/PayrollControl_1_000.json#/definitions/PagedPayrollControl"
 								}
 							}
 						}
