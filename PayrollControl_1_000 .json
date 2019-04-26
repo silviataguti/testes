@@ -17,8 +17,8 @@
             },
             "productInformation": [
 				{
-					"product": "PROTHEUS",
-					"contact": "Reginaldo.Lyra@totvs.com.br",
+					"product": "Protheus",
+					"contact": "reginaldo.Lyra@totvs.com.br",
 					"description": "",
 					"adapter": "GPA011API",
 					"helpUrl": "link aqui"
@@ -31,7 +31,7 @@
 					"helpUrl": "link aqui"
                 },
                 {
-					"product": "DATASUL",
+					"product": "Datasul",
 					"contact": "",
 					"description": "",
 					"adapter": "",
@@ -91,7 +91,7 @@
                     "exemple":"T1|MG|01",
 					"x-totvs": [
 						{
-							"product": "PROTHEUS",
+							"product": "Protheus",
 							"field": "",
 							"required": false,
 							"type": "string",
@@ -108,7 +108,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "DATASUL",
+							"product": "Datasul",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -124,7 +124,7 @@
                     "exemple":"D MG 01",
 					"x-totvs": [
 						{
-							"product": "PROTHEUS",
+							"product": "Protheus",
 							"field": "TMP.TMP_FILIAL",
 							"required": true,
 							"type": "string",
@@ -141,7 +141,7 @@
                             "canUpdate": false                            
 						},
                         {
-							"product": "DATASUL",
+							"product": "Datasul",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -157,7 +157,7 @@
                     "exemple":"000100",
 					"x-totvs": [
 						{
-							"product": "PROTHEUS",
+							"product": "Protheus",
 							"field": "TMP.TMP_MAT",
 							"required": true,
 							"type": "string",
@@ -174,7 +174,7 @@
                             "canUpdate": false                            
 						},
                         {
-							"product": "DATASUL",
+							"product": "Datasul",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -190,7 +190,7 @@
                     "exemple":"T1||D MG 01|000100",
 					"x-totvs": [
 						{
-							"product": "PROTHEUS",
+							"product": "Protheus",
 							"field": "SM0.M0_CODIGO + TMP.TMP_FILIAL + TMP.TMP_MAT",
 							"required": true,
 							"type": "string",
@@ -207,7 +207,7 @@
                             "canUpdate": false                            
 						},
                         {
-							"product": "DATASUL",
+							"product": "Datasul",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -224,7 +224,7 @@
                     "exemple":"yyyy-mm-ddThh:mm:ss+|-hh:mm",
 					"x-totvs": [
 						{
-							"product": "PROTHEUS",
+							"product": "Protheus",
 							"field": "TMP.TMP_DATA",
 							"required": true,
 							"type": "string",
@@ -241,7 +241,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "DATASUL",
+							"product": "Datasul",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -257,7 +257,7 @@
                     "exemple":"1",
 					"x-totvs": [
 						{
-							"product": "PROTHEUS",
+							"product": "Protheus",
 							"field": "TMP.TMP_ORIGEM",
 							"required": true,
 							"type": "string",
@@ -274,7 +274,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "DATASUL",
+							"product": "Datasul",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -290,7 +290,7 @@
                     "exemple":"001",
 					"x-totvs": [
 						{
-							"product": "PROTHEUS",
+							"product": "Protheus",
 							"field": "TMP.TMP_CODFOR",
 							"required": true,
 							"type": "string",
@@ -307,7 +307,7 @@
 							"canUpdate": false
 						},
                         {,
-							"product": "DATASUL",
+							"product": "Datasul",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -323,7 +323,7 @@
                     "exemple":"1",
 					"x-totvs": [
 						{
-							"product": "PROTHEUS",
+							"product": "Protheus",
 							"field": "TMP.TMP_TPFORN",
 							"required": true,
 							"type": "string",
@@ -340,7 +340,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "DATASUL",
+							"product": "Datasul",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -356,7 +356,7 @@
                     "exemple":"",
 					"x-totvs": [
 						{
-							"product": "PROTHEUS",
+							"product": "Protheus",
 							"field": "TMP.TMP_CODCON",
 							"required": true,
 							"type": "string",
@@ -373,7 +373,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "DATASUL",
+							"product": "Datasul",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -389,7 +389,7 @@
                     "exemple":"",
 					"x-totvs": [
 						{
-							"product": "PROTHEUS",
+							"product": "Protheus",
 							"field": "TMP.TMP_PLANO",
 							"required": true,
 							"type": "string",
@@ -406,7 +406,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "DATASUL",
+							"product": "Datasul",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -422,7 +422,7 @@
                     "exemple":"001",
 					"x-totvs": [
 						{
-							"product": "PROTHEUS",
+							"product": "Protheus",
 							"field": "TMP.TMP_PD",
 							"required": true,
 							"type": "string",
@@ -439,7 +439,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "DATASUL",
+							"product": "Datasul",
 							"field": "",
 							"required": false,
 							"type": "string",
@@ -456,7 +456,7 @@
                     "exemple":"999.00",
 					"x-totvs": [
 						{
-							"product": "PROTHEUS",
+							"product": "Protheus",
 							"field": "TMP.TMP_VLRFUN",
 							"required": true,
 							"type": "integer",
@@ -473,7 +473,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "DATASUL",
+							"product": "Datasul",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -490,7 +490,7 @@
                     "exemple":"yyyy-mm-ddThh:mm:ss+|-hh:mm",
 					"x-totvs": [
 						{
-							"product": "PROTHEUS",
+							"product": "Protheus",
 							"field": "TMP.TMP_DATPGT"
 							"required": true,
 							"type": "string",
@@ -507,7 +507,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "DATASUL",
+							"product": "Datasul",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -523,7 +523,7 @@
                     "exemple":"201810",
 					"x-totvs": [
 						{
-							"product": "PROTHEUS",
+							"product": "Protheus",
 							"field": "TMP.TMP_COMPPG",
 							"required": true,
 							"type": "string",
@@ -540,7 +540,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "DATASUL",
+							"product": "Datasul",
 							"field": "",
 							"required": true,
 							"type": "string",
