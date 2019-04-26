@@ -40,6 +40,7 @@
 			]            
 		}
 	},    
+	
     "definitions": {
         "PagedPayrollControl": {
 			"type": "object",
@@ -305,7 +306,7 @@
 							"available": true,
 							"canUpdate": false
 						},
-                        {,
+                        {
 							"product": "Datasul",
 							"field": "",
 							"required": true,
@@ -490,7 +491,7 @@
 					"x-totvs": [
 						{
 							"product": "Protheus",
-							"field": "TMP.TMP_DATPGT"
+							"field": "TMP.TMP_DATPGT",
 							"required": true,
 							"type": "string",
 							"available": true,
