@@ -104,7 +104,9 @@
               "required": true,
               "type": "integer",
               "available": true,
-              "canUpdate": false
+              "canUpdate": false,
+              "note": "No RM o conceito de empresa refere-se ao cadastro de Coligada na tabela GCOLIGADA."
+
             },
             {
               "product": "DATASUL",
