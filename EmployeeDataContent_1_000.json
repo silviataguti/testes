@@ -1,9 +1,10 @@
+
 {
     "$schema": "https://raw.githubusercontent.com/totvs/ttalk-standard-message/employeedatacontent/v1/1_000/jsonschema/schemas/events/EmployeeDataContent_1_000.json#",
-	"info": {
+    "info": {
 		"description": "Schema para entidade de funcionarios para a linha de produtos Totvs - Mensagem global utilizando o conceito REST/JSON",
 		"version": "1.000",
-        "title": "RelaÁ„o de Funcion·rios - Global",
+        "title": "Rela√ß√£o de Funcion√°rios - Global",
         "contact": {
 			"name": "T-Talk",
 			"url": "API.Totvs.com.br",
@@ -12,12 +13,12 @@
 		"x-totvs": {
 			"messageDocumentation": {
 				"name": "EmployeeDataContent",
-				"description": "Esta api tem por objetivos disponibilizar para o cliente interessado em integrar seus dados de funcion·rios com sistemas de terceiros, possibilitando criar integraÁıes dos mais vari·dos tipos que necessitem dos dados de seus colaboradores.",
+				"description": "Esta api tem por objetivos disponibilizar para o cliente interessado em integrar seus dados de funcion√°rios com sistemas de terceiros, possibilitando criar integra√ß√µes dos mais vari√°dos tipos que necessitem dos dados de seus colaboradores.",
 				"segment": "Recursos Humanos"
             },
             "productInformation": [
 				{
-					"product": "Protheus",
+					"product": "PROTHEUS",
 					"contact": "Reginaldo.Lyra@totvs.com.br",
 					"description": "",
 					"adapter": "GPA010API",
@@ -31,7 +32,7 @@
 					"helpUrl": "link aqui"
                 },
                 {
-					"product": "Datasul",
+					"product": "DATASUL",
 					"contact": "",
 					"description": "",
 					"adapter": "",
@@ -83,21 +84,21 @@
 		},
         "EmployeeDataContentItem": {
 			"type": "object",
-			"description": "Descreve os dados globais do Funcion·rio e de seus dependentes",
+			"description": "Descreve os dados globais do Funcion√°rio e de seus dependentes",
 			"properties": {
 				"companyKey": {
-					"description": "Agrupamento de Empresa, Unidade de negÛcio e Filial",
+					"description": "Agrupamento de Empresa, Unidade de neg√≥cio e Filial",
                     "type": "string",
                     "exemple":"T1|0101|MG",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "",
 							"required": false,
 							"type": "string",
 							"available": true,
                             "canUpdate": false,
-                            "note":"n„o possui campo fÌsico na tabela"                         
+                            "note":"n√£o possui campo f√≠sico na tabela"                         
                         },
                         {
 							"product": "RM",
@@ -108,7 +109,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -124,13 +125,13 @@
                     "exemple":"D MG 01",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "SRAXX0.RA_FILIAL",
 							"required": true,
 							"type": "string",
 							"available": true,
                             "canUpdate": false,
-                            "note":"pode ter tamanho entre 02 e 12 dependendo da configuraÁ„o do Protheus"
+                            "note":"pode ter tamanho entre 02 e 12 dependendo da configura√ß√£o do Protheus"
                         },
                         {
 							"product": "RM",
@@ -141,7 +142,7 @@
                             "canUpdate": false                            
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -157,7 +158,7 @@
                     "exemple":"000100",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "SRAXX0.RA_MAT",
 							"required": true,
 							"type": "string",
@@ -174,7 +175,7 @@
                             "canUpdate": false                            
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -185,18 +186,18 @@
 					]
                 },    
                 "internalIdCode": {
-					"description": "InternalId do funcion·rio",
+					"description": "InternalId do funcion√°rio",
                     "type": "string",
                     "exemple":"T1||D MG 01|000100",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "SM0.M0_CODIGO + SRAXX0.RA_FILIAL + SRAXX0.RA_MAT",
 							"required": true,
 							"type": "string",
 							"available": true,
                             "canUpdate": false,
-                            "note":"o InternalID da empresa È formado empresa|RA_FILIAL. Tamanho entre 05 e 15"
+                            "note":"o InternalID da empresa √© formado empresa|RA_FILIAL. Tamanho entre 05 e 15"
                         },
                         {
 							"product": "RM",
@@ -207,7 +208,7 @@
                             "canUpdate": false                            
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -223,7 +224,7 @@
                     "exemple":"HENRIQUE ROBERTO A. DOS SANTOS",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "SRAXX0.RA_NOME",
 							"required": true,
 							"type": "string",
@@ -240,7 +241,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -251,12 +252,12 @@
 					]
                 },    
                 "fullName": {
-					"description": "Nome Completo do Funcion·rio",
+					"description": "Nome Completo do Funcion√°rio",
                     "type": "string",
                     "exemple":"HENRIQUE ROBERTO ALBUQUERQUE DOS SANTOS",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "SRAXX0.RA_NOMECMP",
 							"required": false,
 							"type": "string",
@@ -273,7 +274,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -284,12 +285,12 @@
 					]
                 },    
                 "badgeNumber": {
-					"description": "N˙mero do Crach·",
+					"description": "N√∫mero do Crach√°",
                     "type": "string",
                     "exemple":"0000001000",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "SRAXX0.RA_CRACHA",
 							"required": false,
 							"type": "string",
@@ -306,7 +307,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -322,7 +323,7 @@
                     "exemple":"000000001",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "SRAXX0.RA_DEPTO",
 							"required": false,
 							"type": "string",
@@ -339,7 +340,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -355,7 +356,7 @@
                     "exemple":"T1||D MG 01|000000001",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "SM0.M0_CODIGO+SQBXX0.QB_FILIAL+SQBXX0.QB_DEPTO ",
 							"required": true,
 							"type": "string",
@@ -372,7 +373,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -383,12 +384,12 @@
 					]
                 },    
                 "departmentDescription": {
-					"description": "DescriÁ„o do Departamento",
+					"description": "Descri√ß√£o do Departamento",
                     "type": "string",
                     "exemple":"DEPARTAMENTO FINANCEIRO",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "SQBXX0.QB_DESCRIC ",
 							"required": true,
 							"type": "string",
@@ -405,7 +406,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -416,13 +417,13 @@
 					]
                 },    
                 "hiringDate": {
-					"description": "Data de Admiss„o",
+					"description": "Data de Admiss√£o",
                     "type": "string",
                     "format": "date-time",
                     "exemple":"yyyy-mm-ddThh:mm:ss+|-hh:mm",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "SRAXX0.RA_ADMISSA",
 							"required": true,
 							"type": "string",
@@ -439,7 +440,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -450,13 +451,13 @@
 					]
                 },    
                 "demissionDate": {
-					"description": "Data de Demiss„o",
+					"description": "Data de Demiss√£o",
                     "type": "string",
                     "format":"date-time",
                     "exemple":"yyyy-mm-ddThh:mm:ss+|-hh:mm",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "SRAXX0.RA_DEMISSA",
 							"required": false,
 							"type": "string",
@@ -473,7 +474,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": false,
 							"type": "string",
@@ -484,13 +485,13 @@
 					]
                 },    
                 "birthDate": {
-					"description": "Data de anivers·rio",
+					"description": "Data de anivers√°rio",
                     "type": "string",
                     "format":"date-time",
                     "exemple":"yyyy-mm-ddThh:mm:ss+|-hh:mm",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "SRAXX0.RA_NASC",
 							"required": true,
 							"type": "string",
@@ -507,7 +508,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -523,7 +524,7 @@
                     "exemple":"M",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "SRAXX0.RA_SEXO",
 							"required": false,
 							"type": "string",
@@ -540,7 +541,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -551,12 +552,12 @@
 					]
                 },    
                 "street": {
-					"description": "Rua do funcion·rio",
+					"description": "Rua do funcion√°rio",
                     "type": "string",
                     "exemple":"Avenida Braz Leme",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "SRAXX0.RA_ENDEREC",
 							"required": true,
 							"type": "string",
@@ -573,7 +574,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -584,12 +585,12 @@
 					]
                 },    
                 "streetNumber": {
-					"description": "N˙mero do endereÁo",
+					"description": "N√∫mero do endere√ßo",
                     "type": "string",
                     "exemple":"1020",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "SRAXX0.RA_NUMENDE ",
 							"required": true,
 							"type": "string",
@@ -606,7 +607,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -617,12 +618,12 @@
 					]
                 },    
                 "complement": {
-					"description": "Complemento do endereÁo",
+					"description": "Complemento do endere√ßo",
                     "type": "string",
                     "exemple":"ap 110",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "SRAXX0.RA_COMPLEM",
 							"required": false,
 							"type": "string",
@@ -639,7 +640,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -650,12 +651,12 @@
 					]
                 },    
                 "neighborhood": {
-					"description": "Bairro do Funcion·rio",
+					"description": "Bairro do Funcion√°rio",
                     "type": "string",
                     "exemple":"Santana",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "SRAXX0.RA_BAIRRO",
 							"required": true,
 							"type": "string",
@@ -672,7 +673,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -683,12 +684,12 @@
 					]
                 },    
                 "homeState": {
-					"description": "Estado do Funcin·rio",
+					"description": "Estado do Funcin√°rio",
                     "type": "string",
                     "exemple":"SP",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "SRAXX0.RA_ESTADO",
 							"required": true,
 							"type": "string",
@@ -705,7 +706,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -721,7 +722,7 @@
                     "exemple":"SP",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "SRAXX0.RA_NATURAL",
 							"required": true,
 							"type": "string",
@@ -738,7 +739,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -749,18 +750,18 @@
 					]
                 },    
                 "employeeSituation": {
-					"description": "SituaÁ„o do Funcion·rio na Folha",
+					"description": "Situa√ß√£o do Funcion√°rio na Folha",
                     "type": "string",
                     "exemple":"F",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "SRAXX0.RA_SITFOLH",
 							"required": true,
 							"type": "string",
 							"available": true,
                             "canUpdate": false,
-                            "note":"SituaÁ„o do Funcion·rio na Folha, branco funcionario ativo, F-Ferias, A-Afastado "                         
+                            "note":"Situa√ß√£o do Funcion√°rio na Folha, branco funcionario ativo, F-Ferias, A-Afastado "                         
                         },
                         {
 							"product": "RM",
@@ -771,7 +772,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -782,12 +783,12 @@
 					]
                 },    
                 "city": {
-					"description": "Cidade do Funcion·rio",
+					"description": "Cidade do Funcion√°rio",
                     "type": "string",
-                    "exemple":"S„o Paulo",
+                    "exemple":"S√£o Paulo",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "SRAXX0.RA_MUNICIP",
 							"required": true,
 							"type": "string",
@@ -804,7 +805,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -815,12 +816,12 @@
 					]
                 },    
                 "zipCode": {
-					"description": "N˙mero do Cep",
+					"description": "N√∫mero do Cep",
                     "type": "string",
                     "exemple":"02535000",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "SRAXX0.RA_CEP",
 							"required": true,
 							"type": "string",
@@ -837,7 +838,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -848,12 +849,12 @@
 					]
                 },    
                 "areaCode": {
-					"description": "CÛdigo de ¡rea(DDD)",
+					"description": "C√≥digo de √Årea(DDD)",
                     "type": "string",
                     "exemple":"011",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "SRAXX0.RA_DDDFONE",
 							"required": false,
 							"type": "string",
@@ -870,7 +871,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -886,7 +887,7 @@
                     "exemple":"20997000",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "SRAXX0.RA_TELEFON",
 							"required": false,
 							"type": "string",
@@ -903,7 +904,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -914,12 +915,12 @@
 					]
                 },    
                 "areaCodeMobile": {
-					"description": "CÛdigo de ¡rea(DDD)",
+					"description": "C√≥digo de √Årea(DDD)",
                     "type": "string",
                     "exemple":"011",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "SRAXX0.RA_DDDCELU",
 							"required": true,
 							"type": "string",
@@ -936,7 +937,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -947,12 +948,12 @@
 					]
                 },    
                 "mobileNumber": {
-					"description": "N˙mero do Telefone Celular",
+					"description": "N√∫mero do Telefone Celular",
                     "type": "string",
                     "exemple":"20997000",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "SRAXX0.RA_NUMCELU",
 							"required": true,
 							"type": "string",
@@ -969,7 +970,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -980,12 +981,12 @@
 					]
                 },    
                 "socialIntegProgCode": {
-					"description": "Numero do PIS do Funcion·rio",
+					"description": "Numero do PIS do Funcion√°rio",
                     "type": "string",
                     "exemple":"95375527156",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "SRAXX0.RA_PIS",
 							"required": false,
 							"type": "string",
@@ -1002,7 +1003,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -1013,12 +1014,12 @@
 					]
                 },    
                 "workCardNumber": {
-					"description": "Carteira de Trabalho do Funcion·rio",
+					"description": "Carteira de Trabalho do Funcion√°rio",
                     "type": "string",
                     "exemple":"33000",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "SRAXX0.RA_NUMCP",
 							"required": true,
 							"type": "string",
@@ -1035,7 +1036,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -1051,7 +1052,7 @@
                     "exemple":"011",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "SRAXX0.RA_SERCP",
 							"required": true,
 							"type": "string",
@@ -1068,7 +1069,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -1079,12 +1080,12 @@
 					]
                 },    
                 "workCardStateIssuing": {
-					"description": "Unidade da federaÁ„o emitente da carteira de trabalho",
+					"description": "Unidade da federa√ß√£o emitente da carteira de trabalho",
                     "type": "string",
                     "exemple":"SP",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "SRAXX0.RA_SERCP",
 							"required": false,
 							"type": "string",
@@ -1101,7 +1102,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -1112,12 +1113,12 @@
 					]
                 },    
                 "costCenterCode": {
-					"description": "CÛdigo do Centro de Custo",
+					"description": "C√≥digo do Centro de Custo",
                     "type": "string",
                     "exemple":"GPE000001",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "SRAXX0.RA_CC",
 							"required": true,
 							"type": "string",
@@ -1134,7 +1135,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -1150,7 +1151,7 @@
                     "exemple":"T1||D MG 01|GPE000001",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "SM0.M0_CODIGO+SM0.M0_UN+CTTXX0.CTT_FILIAL+CTTXX0.CTT_CUSTO ",
 							"required": true,
 							"type": "string",
@@ -1167,7 +1168,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -1178,12 +1179,12 @@
 					]
                 },    
                 "costCenterDescription": {
-					"description": "DescriÁ„o do Centro de Custo",
+					"description": "Descri√ß√£o do Centro de Custo",
                     "type": "string",
                     "exemple":"Departamento Pessoal",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": " CTTXX0.CTT_DESC01",
 							"required": true,
 							"type": "string",
@@ -1200,7 +1201,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -1211,12 +1212,12 @@
 					]
                 },    
                 "employeePositionCode": {
-					"description": "CÛdigo do Cargo do Funcion·rio",
+					"description": "C√≥digo do Cargo do Funcion√°rio",
                     "type": "string",
                     "exemple":"00001",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "SRAXX0.RA_CARGO",
 							"required": true,
 							"type": "string",
@@ -1233,7 +1234,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -1244,12 +1245,12 @@
 					]
                 },    
                 "employeePositionCodeInternalId": {
-					"description": "InternalId do Cargo do Funcion·rio",
+					"description": "InternalId do Cargo do Funcion√°rio",
                     "type": "string",
                     "exemple":"T1||D MG 01|00001",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "SM0.M0_CODIGO+SQ3XX0.Q3_FILIAL+SQ3XX0.Q3_CARGO",
 							"required": true,
 							"type": "string",
@@ -1266,7 +1267,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -1277,12 +1278,12 @@
 					]
                 },    
                 "employeePositionDescription": {
-					"description": "DescriÁ„o do Cargo do Funcion·rio",
+					"description": "Descri√ß√£o do Cargo do Funcion√°rio",
                     "type": "string",
                     "exemple":"COORDENADOR DE SISTEMAS",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "SQ3XX0.Q3_DESCSUM",
 							"required": true,
 							"type": "string",
@@ -1299,7 +1300,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -1310,12 +1311,12 @@
 					]
                 },    
                 "salaryCategory": {
-					"description": "Categoria Salarial. Rever estas categorias quando  for utilizar com o RM. Produto Datasul tambÈm possui outras categorias (Semana, Quinzenal e Diarista)",
+					"description": "Categoria Salarial. Rever estas categorias quando  for utilizar com o RM. Produto Datasul tamb√©m possui outras categorias (Semana, Quinzenal e Diarista)",
                     "type": "string",
                     "exemple":"M",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "SRAXX0.RA_CATFUNC",
 							"required": true,
 							"type": "string",
@@ -1332,7 +1333,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -1348,7 +1349,7 @@
                     "exemple":"001",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "SRAXX0.RA_TNOTRAB",
 							"required": true,
 							"type": "string",
@@ -1365,7 +1366,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -1381,7 +1382,7 @@
                     "exemple":"T1||D MG|001",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "SM0.M0_CODIGO+SR6XX0.R6_FILIAL+SR6XX0.R6_TURNO",
 							"required": true,
 							"type": "string",
@@ -1398,7 +1399,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -1409,12 +1410,12 @@
 					]
                 },    
                 "workshiftDescription": {
-					"description": "DescriÁ„o do Turno de Trabalho",
+					"description": "Descri√ß√£o do Turno de Trabalho",
                     "type": "string",
                     "exemple":"TURNO UNICO",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "SR6XX0.R6_DESC",
 							"required": true,
 							"type": "string",
@@ -1431,7 +1432,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -1442,12 +1443,12 @@
 					]
                 },    
                 "workShiftSequence": {
-					"description": "SequÍncia de Turno do funcion·rio",
+					"description": "Sequ√™ncia de Turno do funcion√°rio",
                     "type": "string",
                     "exemple":"01",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "SRAXX0.RA_SEQTURN",
 							"required": false,
 							"type": "string",
@@ -1464,7 +1465,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -1475,12 +1476,12 @@
 					]
                 },    
                 "roleCode": {
-					"description": "CÛdigo da FunÁ„o do Funcion·rio",
+					"description": "C√≥digo da Fun√ß√£o do Funcion√°rio",
                     "type": "string",
                     "exemple":"00001",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "SRAXX0.RA_CODFUNC",
 							"required": true,
 							"type": "string",
@@ -1497,7 +1498,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -1508,12 +1509,12 @@
 					]
                 },    
                 "roleInternalId": {
-					"description": "InternalId do CÛdigo da FunÁ„o do Funcion·rio",
+					"description": "InternalId do C√≥digo da Fun√ß√£o do Funcion√°rio",
                     "type": "string",
                     "exemple":"T1||D MG|00001",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "SM0.M0_CODIGO+SRJXX0.RJ_FILIAL+SRJXX0.RJ_FUNCAO",
 							"required": true,
 							"type": "string",
@@ -1530,7 +1531,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -1541,12 +1542,12 @@
 					]
                 },    
                 "roleDescription": {
-					"description": "DescriÁ„o da FunÁ„o do Funcion·rio",
+					"description": "Descri√ß√£o da Fun√ß√£o do Funcion√°rio",
                     "type": "string",
                     "exemple":"00001",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "SRJXX0.RJ_DESC",
 							"required": true,
 							"type": "string",
@@ -1563,7 +1564,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -1574,13 +1575,13 @@
 					]
                 },    
                 "contractEnd": {
-					"description": "Data de tÈrmino do contrato trabalho/experiÍncia",
+					"description": "Data de t√©rmino do contrato trabalho/experi√™ncia",
                     "type": "string",
                     "format":"date-time",
                     "exemple":"yyyy-mm-ddThh:mm:ss+|-hh:mm",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "SRAXX0.RA_DTFIMCT",
 							"required": false,
 							"type": "string",
@@ -1597,7 +1598,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -1608,12 +1609,12 @@
 					]
 				},    
                 "email": {
-					"description": "Email do funcion·rio",
+					"description": "Email do funcion√°rio",
                     "type": "string",
                     "exemple":"xxx@totvs.com.br",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "SRAXX0.RA_EMAIL",
 							"required": false,
 							"type": "string",
@@ -1630,7 +1631,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
@@ -1641,18 +1642,18 @@
 					]
 				},    
                 "typeOfSalaryChange": {
-					"description": "Tipo da AlteraÁ„o Salarial",
+					"description": "Tipo da Altera√ß√£o Salarial",
                     "type": "string",
                     "exemple":"001",
 					"x-totvs": [
 						{
-							"product": "Protheus",
+							"product": "PROTHEUS",
 							"field": "SRAXX0.RA_TIPOALT",
 							"required": false,
 							"type": "string",
 							"available": true,
                             "canUpdate": false,
-                            "note":"obrigatorio quando h· alteraÁ„o salarial"                         
+                            "note":"obrigatorio quando h√° altera√ß√£o salarial"                         
                         },
                         {
 							"product": "RM",
@@ -1663,7 +1664,7 @@
 							"canUpdate": false
 						},
                         {
-							"product": "Datasul",
+							"product": "DATASUL",
 							"field": "",
 							"required": true,
 							"type": "string",
