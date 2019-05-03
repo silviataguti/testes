@@ -103,6 +103,12 @@
 					},
 					{
 						"$ref": "#/components/parameters/benefitType"
+					},
+					{
+						"$ref": "#/components/parameters/companyId"
+					},
+					{
+						"$ref": "#/components/parameters/branchId"
 					}
 				],
 				"responses": {
@@ -111,7 +117,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "https://raw.githubusercontent.com/edvf82/testes/master/PayrollControl_1_000.json#/definitions/PagedPayrollControl"
+									"$ref": "https://raw.githubusercontent.com/totvs/ttalk-standard-message/payrollControl/v1/1_000/jsonschema/schemas/PayrollControl_1_000.json#/definitions/PagedPayrollControl"
 								}
 							}
 						}
@@ -237,6 +243,34 @@
 						}
 					]
 				}
+			},
+			"companyId": {
+				"description": "Código da Empresa",
+				"type": "string",
+				"x-totvs": [
+					{
+						"product": "Protheus",
+						"field": "",
+						"required": false,
+						"note": "será recebido o código da empresa, relacionado para ",
+						"available": true,
+						"canUpdate": false
+					}
+				]
+			},
+			"branchId": {
+				"description": "Código da Filial",
+				"type": "string",
+				"x-totvs": [
+					{
+						"product": "Protheus",
+						"field": "",
+						"required": false,
+						"note": "Será recebido o código da variável",
+						"available": true,
+						"canUpdate": false
+					}
+				]
 			}
 		},
 		
