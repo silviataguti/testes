@@ -30,14 +30,20 @@
 				"description": "Cadastro de Funcionários na base da TOTVS",
 				"segment": "Recursos Humanos"
 			},
-			"productInformation": [
-				{
-					"product": "Protheus",
-					"contact": "reginaldo.Lyra@totvs.com.br",
-					"description": "Cadastro de Funcionários na base da TOTVS",
-					"adapter": "GPA010API.prw"
-				}
-			]
+      "productInformation": [
+        {
+          "product": "Protheus",
+          "contact": "reginaldo.Lyra@totvs.com.br",
+          "description": "Cadastro de Funcionários na base da TOTVS",
+          "adapter": "GPA010API.prw"
+        },
+        {
+          "product": "RM",
+          "contact": "wellington.vieira@totvs.com.br",
+          "description": "Cadastro de Funcionários na base da TOTVS",
+          "adapter": "FopEmployeeData"
+        }
+      ]
 		}
 	},
 	"paths": {
@@ -48,14 +54,20 @@
 				],
 				"summary": "Retorna todos os registros de funcionários e seus respectivos dados complementares(Ex:Departamento, Centro de Custo)",
 				"x-totvs": {
-					"productInformation": [
-						{
-							"product": "Protheus",
-							"available": true,
-							"note": "Este verbo esta disponivel com todos os parametros",
-							"minimalVersion": "12.1.23"
-						}
-					]
+          "productInformation": [
+            {
+              "product": "Protheus",
+              "available": true,
+              "note": "Este verbo esta disponivel com todos os parametros",
+              "minimalVersion": "12.1.23"
+            },
+            {
+              "product": "RM",
+              "available": true,
+              "note": "Este verbo esta disponivel com todos os parametros",
+              "minimalVersion": "12.1.25"
+            }
+          ]
 				},
 				"description": "Retorna todos os registros de funcionários e seus respectvos departamentos, centro de custos, cargos, funções e demais informações.",
 				"operationId": "getEmployeeDataContent",
@@ -126,14 +138,20 @@
 					"type": "string"
 					},
 					"x-totvs": {
-						"productInformation": [
-							{
-								"product": "Protheus",
-								"available": true,
-								"note": "Produto Protheus,RM ou DataSul",
-								"minimalVersion": "12.1.21"
-							}
-						]
+            "productInformation": [
+              {
+                "product": "Protheus",
+                "available": true,
+                "note": "Produto Protheus,RM ou DataSul",
+                "minimalVersion": "12.1.21"
+              },
+              {
+                "product": "RM",
+                "available": true,
+                "note": "Produto RM ",
+                "minimalVersion": "12.1.25"
+              }
+            ]
 					}
 				},
 			"updateDate": {
@@ -146,14 +164,20 @@
 					"type": "string"
 				},
 				"x-totvs": {
-					"productInformation": [
-						{
-							"product": "Protheus",
-							"available": true,
-							"note": "Data de atualização da ultima requisição.",
-							"minimalVersion": "12.1.23"
-						}
-					]
+          "productInformation": [
+            {
+              "product": "Protheus",
+              "available": true,
+              "note": "Data de atualização da ultima requisição.",
+              "minimalVersion": "12.1.23"
+            },
+            {
+              "product": "RM",
+              "available": true,
+              "note": "Data de atualização da ultima requisição.",
+              "minimalVersion": "12.1.25"
+            }
+          ]
 				}
 			}
 		},

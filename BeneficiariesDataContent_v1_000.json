@@ -15,7 +15,7 @@
 		}
 	],
   "info": {
-    "description": "API para consulta de beneficiários, funcionários e seus dependentes que possuem benefícios, geridos na linha de produtos Totvs - Mensagem global utilizando o conceito REST/JSON",
+    "description": "API para beneficiários, funcionários e seus dependentes que possuem benefícios, geridos na linha de produtos Totvs - Mensagem global utilizando o conceito REST/JSON",
     "version": "1.000",
     "title": "Relação de Benficiários - Global",
     "contact": {
@@ -34,8 +34,7 @@
           "product": "RM",
           "contact": "wellington.vieira@totvs.com.br",
           "description": "Consulta de Beneficiários, funcionários e seus dependentes que tiveram benefícios a eles vinculados e lançados.",
-          "adapter": "FopBeneficiariosData",
-          "helpUrl": "link aqui"
+          "adapter": "FopBeneficiariosData"
         }
       ]
     }
@@ -52,7 +51,7 @@
             {
               "product": "RM",
               "available": true,
-              "note": "Este verbo esta disponivel com todos os parametros",
+              "note": "Este verbo esta disponivel com todos os parametros.",
               "minimalVersion": "12.1.25"
             }
           ]
@@ -130,7 +129,7 @@
             {
               "product": "RM",
               "available": true,
-              "note": "Produto Protheus,RM ou DataSul",
+              "note": "Não irá gravar dados nas tabelas de origem linha RM.",
               "minimalVersion": "12.1.25"
             }
           ]
